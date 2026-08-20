@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#050507">
+    <meta name="description" content="SFV-X Games Player">
+    <title>SFV-X Games | Game Player</title>
+    <link rel="preconnect" href="https://img.gamemonetize.com">
+    <link rel="stylesheet" href="game-player.css">
+</head>
+
+<body>
+
+    <div class="game-player-app" id="gamePlayerApp">
+
+        <!-- =====================================================
+             HEADER
+             ===================================================== -->
+        <header class="game-player-header">
+
+            <a href="../02-Games/games.html" class="player-logo" aria-label="SFV-X Games Home">
+                <span class="logo-main">SFV-X</span>
+                <span class="logo-section">GAMES</span>
+            </a>
+
+            <div class="player-header-actions">
+
+                <button class="player-header-button" id="backButton" type="button" aria-label="Back to games">
+                    ←
+                </button>
+
+                <button class="player-header-button" id="fullscreenButton" type="button" aria-label="Fullscreen">
+                    ⛶
+                </button>
+
+            </div>
+
+        </header>
+
+        <!-- =====================================================
+             MAIN
+             ===================================================== -->
+        <main class="game-player-main">
+
+            <!-- =================================================
+                 LOADING
+                 ================================================= -->
+            <section class="player-loading" id="playerLoading">
+                <div class="loading-spinner"></div>
+                <h1>Loading Game...</h1>
+                <p>Please wait while the game is being prepared.</p>
+            </section>
+
+            <!-- =================================================
+                 ERROR
+                 ================================================= -->
+            <section class="player-error" id="playerError" hidden>
+                <div class="error-icon">⚠️</div>
+                <h1>Game Not Found</h1>
+                <p id="errorMessage">The requested game could not be found.</p>
+                <button class="player-primary-button" id="errorBackButton" type="button">
+                    ← Back to Games
+                </button>
+            </section>
+
+            <!-- =================================================
+                 GAME CONTENT
+                 ================================================= -->
+            <section class="game-player-content" id="gamePlayerContent" hidden>
+
+                <!-- =============================================
+                     GAME INFORMATION
+                     ============================================= -->
+                <div class="game-info">
+                    <div class="game-info-main">
+                        <span class="game-category" id="gameCategory">GAME</span>
+                        <h1 id="gameTitle">Game Title</h1>
+                        <p id="gameDescription">Game description</p>
+                    </div>
+                    <div class="game-actions">
+                        <button class="player-action-button" id="favoriteButton" type="button">
+                            ☆ Favorite
+                        </button>
+                    </div>
+                </div>
+
+                <!-- =============================================
+                     GAME PLAYER
+                     ============================================= -->
+                <div class="game-frame-wrapper" id="gameFrameWrapper">
+
+                    <div class="game-frame-header">
+                        <div class="frame-status">
+                            <span class="status-dot"></span>
+                            <span>SFV-X GAME PLAYER</span>
+                        </div>
+                        <div class="frame-controls">
+                            <button id="frameFullscreenButton" type="button" aria-label="Fullscreen game">
+                                ⛶
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="game-frame-container" id="gameFrameContainer">
+                        <!-- game-player.js will create the game iframe here -->
+                    </div>
+
+                </div>
+
+                <!-- =============================================
+                     GAME META
+                     ============================================= -->
+                <div class="game-meta">
+                    <div class="meta-item">
+                        <span class="meta-label">Category</span>
+                        <strong id="metaCategory">—</strong>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Tags</span>
+                        <strong id="metaTags">—</strong>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Game ID</span>
+                        <strong id="metaId">—</strong>
+                    </div>
+                </div>
+
+                <!-- =============================================
+                     RELATED GAMES
+                     ============================================= -->
+                <section class="related-games-section">
+
+                    <div class="section-header">
+                        <div>
+                            <span class="section-kicker">DISCOVER MORE</span>
+                            <h2>More Games</h2>
+                        </div>
+                    </div>
+
+                    <div class="related-games-grid" id="relatedGamesGrid">
+                        <!-- Related games are generated by game-player.js -->
+                    </div>
+
+                </section>
+
+            </section>
+
+        </main>
+
+        <!-- =====================================================
+             FOOTER
+             ===================================================== -->
+        <footer class="game-player-footer">
+            <span>SFV-X GAMES</span>
+            <span>THE NEXT PLAYGROUND</span>
+            <span>© 2026</span>
+        </footer>
+
+    </div>
+
+    <!-- =====================================================
+         JAVASCRIPT
+         ===================================================== -->
+    <script src="game-player.js"></script>
+
+</body>
+
+</html>

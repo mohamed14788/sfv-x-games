@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Games | SFV-X</title>
+
+    <link rel="stylesheet" href="games-entry.css">
+</head>
+
+<body>
+
+    <!-- =========================================================
+         الصفحة الرئيسية لقسم الألعاب
+         ========================================================= -->
+
+    <main class="games-entry" id="gamesEntry">
+
+        <!-- =====================================================
+             الخلفية والمؤثرات
+             ===================================================== -->
+
+        <div class="entry-background" aria-hidden="true">
+
+            <div class="background-glow glow-one"></div>
+
+            <div class="background-glow glow-two"></div>
+
+            <div class="background-grid"></div>
+
+        </div>
+
+
+        <!-- =====================================================
+             المحتوى الرئيسي
+             ===================================================== -->
+
+        <section class="entry-content" id="entryContent">
+
+
+            <!-- =================================================
+                 شعار SFV-X GAMES
+                 ================================================= -->
+
+            <div class="entry-brand" id="entryBrand">
+
+                <div
+                    class="brand-mark"
+                    aria-label="SFV-X"
+                >
+
+                    <span class="brand-mark-s">S</span>
+                    <span class="brand-mark-f">F</span>
+                    <span class="brand-mark-v">V</span>
+                    <span class="brand-mark-x">X</span>
+
+                </div>
+
+
+                <span class="brand-section">
+                    GAMES
+                </span>
+
+            </div>
+
+
+            <!-- =================================================
+                 عنوان الصفحة
+                 ================================================= -->
+
+            <div class="entry-heading">
+
+
+                <!-- العنوان الصغير -->
+
+                <span class="heading-small" data-i18n="welcome">
+                    WELCOME TO
+                </span>
+
+
+                <!-- العنوان الرئيسي -->
+
+                <h1>
+
+                    SFV-X
+
+                    <strong>
+                        GAMES
+                    </strong>
+
+                </h1>
+
+
+                <!-- الوصف -->
+
+                <p data-i18n="description">
+                    العب، اكتشف، واستمتع بعالم الألعاب
+                </p>
+
+            </div>
+
+
+            <!-- =================================================
+                 الاختيارات الرئيسية
+                 ================================================= -->
+
+            <div
+                class="entry-options"
+                id="entryOptions"
+            >
+
+
+                <!-- =================================================
+                     بطاقة اللعب الآن
+                     ================================================= -->
+
+                <button
+                    class="entry-card play-card"
+                    id="playNowButton"
+                    type="button"
+                    data-target="../02-Games/games.html"
+                    aria-label="العب الآن"
+                >
+
+                    <!-- صورة البطاقة -->
+
+                    <div class="card-image play-image">
+
+                        <div
+                            class="image-overlay"
+                            aria-hidden="true"
+                        ></div>
+
+
+                        <!-- أيقونة الألعاب -->
+
+                        <div
+                            class="card-icon"
+                            aria-hidden="true"
+                        >
+                            🎮
+                        </div>
+
+
+                        <!-- العلامة -->
+
+                        <span class="card-badge">
+                            PLAY
+                        </span>
+
+                    </div>
+
+
+                    <!-- محتوى البطاقة -->
+
+                    <div class="card-content">
+
+
+                        <span class="card-number">
+                            01
+                        </span>
+
+
+                        <div class="card-text">
+
+                            <h2 data-i18n="playNow">
+                                العب الآن
+                            </h2>
+
+                            <p data-i18n="playDesc">
+                                اكتشف الألعاب والعب مباشرة
+                            </p>
+
+                        </div>
+
+
+                        <span
+                            class="card-arrow"
+                            aria-hidden="true"
+                        >
+                            ←
+                        </span>
+
+                    </div>
+
+                </button>
+
+
+                <!-- =================================================
+                     بطاقة الفيديوهات
+                     ================================================= -->
+
+                <button
+                    class="entry-card videos-card"
+                    id="watchVideosButton"
+                    type="button"
+                    aria-label="استمتع بالفيديوهات"
+                >
+
+                    <!-- صورة البطاقة -->
+
+                    <div class="card-image videos-image">
+
+                        <div
+                            class="image-overlay"
+                            aria-hidden="true"
+                        ></div>
+
+
+                        <!-- أيقونة الفيديو -->
+
+                        <div
+                            class="card-icon"
+                            aria-hidden="true"
+                        >
+                            ▶
+                        </div>
+
+
+                        <!-- العلامة -->
+
+                        <span class="card-badge">
+                            VIDEOS
+                        </span>
+
+                    </div>
+
+
+                    <!-- محتوى البطاقة -->
+
+                    <div class="card-content">
+
+
+                        <span class="card-number">
+                            02
+                        </span>
+
+
+                        <div class="card-text">
+
+                            <h2 data-i18n="videos">
+                                استمتع بالفيديوهات
+                            </h2>
+
+                            <p data-i18n="videosDesc">
+                                شاهد أحدث محتوى الألعاب
+                            </p>
+
+                        </div>
+
+
+                        <span
+                            class="card-arrow"
+                            aria-hidden="true"
+                        >
+                            ←
+                        </span>
+
+                    </div>
+
+                </button>
+
+            </div>
+
+
+            <!-- =================================================
+                 تذييل الصفحة + اختيار اللغة
+                 ================================================= -->
+
+            <div
+                class="entry-footer"
+                id="entryFooter"
+            >
+
+                <!-- =================================================
+                     اختيار اللغة - 9 لغات
+                     ================================================= -->
+
+                <div class="language-selector" id="languageSelector">
+
+                    <button
+                        class="language-button"
+                        id="languageButton"
+                        type="button"
+                        aria-label="Change language"
+                        aria-expanded="false"
+                    >
+
+                        <span class="language-icon">🌐</span>
+
+                        <span class="language-current" id="languageCurrent">
+                            AR
+                        </span>
+
+                        <span class="language-arrow">▾</span>
+
+                    </button>
+
+                    <div
+                        class="language-dropdown"
+                        id="languageDropdown"
+                        hidden
+                    >
+
+                        <button
+                            class="language-option active"
+                            type="button"
+                            data-language="en"
+                        >
+
+                            <span>English</span>
+
+                            <span class="language-check">✓</span>
+
+                        </button>
+
+                        <button
+                            class="language-option"
+                            type="button"
+                            data-language="ar"
+                        >
+
+                            <span>العربية</span>
+
+                            <span class="language-check">✓</span>
+
+                        </button>
+
+                        <button
+                            class="language-option"
+                            type="button"
+                            data-language="es"
+                        >
+
+                            <span>Español</span>
+
+                            <span class="language-check">✓</span>
+
+                        </button>
+
+                        <button
+                            class="language-option"
+                            type="button"
+                            data-language="fr"
+                        >
+
+                            <span>Français</span>
+
+                            <span class="language-check">✓</span>
+
+                        </button>
+
+                        <button
+                            class="language-option"
+                            type="button"
+                            data-language="de"
+                        >
+
+                            <span>Deutsch</span>
+
+                            <span class="language-check">✓</span>
+
+                        </button>
+
+                        <button
+                            class="language-option"
+                            type="button"
+                            data-language="pt"
+                        >
+
+                            <span>Português</span>
+
+                            <span class="language-check">✓</span>
+
+                        </button>
+
+                        <button
+                            class="language-option"
+                            type="button"
+                            data-language="ru"
+                        >
+
+                            <span>Русский</span>
+
+                            <span class="language-check">✓</span>
+
+                        </button>
+
+                        <button
+                            class="language-option"
+                            type="button"
+                            data-language="tr"
+                        >
+
+                            <span>Türkçe</span>
+
+                            <span class="language-check">✓</span>
+
+                        </button>
+
+                        <button
+                            class="language-option"
+                            type="button"
+                            data-language="zh"
+                        >
+
+                            <span>中文</span>
+
+                            <span class="language-check">✓</span>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     النصوص السفلية
+                     ================================================= -->
+
+                <div class="footer-text">
+
+                    <span>
+                        SFV-X
+                    </span>
+
+                    <span
+                        class="footer-dot"
+                        aria-hidden="true"
+                    ></span>
+
+                    <span>
+                        GAMES PLATFORM
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================================
+         JavaScript
+         ========================================================= -->
+
+    <script src="games-entry.js"></script>
+
+</body>
+
+</html>
