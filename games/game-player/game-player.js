@@ -2005,16 +2005,6 @@ async function loadGamesDatabase(
 
         console.error(
             "SFV-X Game Player database error:",
-            error
-        );
-
-        showError(
-            t("databaseError")
-        );
-    }
-}
-
-
 /* =========================================================
    10. LOAD GAME
    ========================================================= */
@@ -2086,11 +2076,38 @@ function loadGame(
         showGamePlaceholder();
     }
 
-    // تفعيل مساحة الإعلانات عند تحميل اللعبة
-    initGameAds();
+    // تفعيل إعلانات وفيديوهات GameMonetize بالـ ID الخاص باللعبة الحالية
+    if (typeof initGameMonetizeAds === 'function') {
+        initGameMonetizeAds(game.id);
+    }
 
     showContent();
 }
+           error
+        );
+
+        showError(
+            t("databaseError")
+        );
+    }
+}
+
+
+/* =========================================================
+   10. LOAD GAME
+   ========================================================= */
+
+function loadGame(
+    gameId
+) {
+
+    showLoading();
+
+    const normalizedId =
+        String(
+            gameId
+        ).trim();
+
 
 
 /* =========================================================
