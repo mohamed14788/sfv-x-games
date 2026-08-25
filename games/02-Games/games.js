@@ -1,7 +1,7 @@
 /** 
  * ========================================================= 
  * SFV-X GAMES - Main JavaScript Engine 
- * Version: 2.0.0 
+ * Version: 2.0.1 (With Auto Language Detection)
  * ========================================================= 
  * 
  * متوافق مع games.html المرسل من المستخدم. 
@@ -14,7 +14,7 @@
  * - Levenshtein Distance 
  * - التصنيفات 
  * - المفضلة 
- * - 9 لغات 
+ * - الكشف التلقائي للغة الجهاز/المتصفح + 9 لغات 
  * - RTL للعربية 
  * - Dark / Light Theme 
  * - Sidebar 
@@ -48,80 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
  
  
     /* ========================================================= 
-       2. STATE 
-       ========================================================= */ 
- 
-    const state = { 
-        allGames: [], 
-        filteredGames: [], 
- 
-        currentCategory: "all", 
-        searchQuery: "", 
- 
-        currentLanguage: "en", 
- 
-        favorites: [], 
- 
-        theme: "dark", 
- 
-        isSidebarOpen: false, 
-        isSearching: false 
-    }; 
- 
- 
-    /* ========================================================= 
-       3. DOM REFERENCES 
-       ========================================================= */ 
- 
-    const DOM = { 
-        app: document.getElementById("gamesApp"), 
- 
-        popularGrid: document.getElementById("popularGamesGrid"), 
-        newGrid: document.getElementById("newGamesGrid"), 
- 
-        searchForm: document.getElementById("gamesSearchForm"), 
-        searchInput: document.getElementById("gamesSearchInput"), 
-        clearSearch: document.getElementById("clearSearch"), 
-        searchEmpty: document.getElementById("searchEmpty"), 
-        resetSearchBtn: document.getElementById("resetSearchBtn"), 
- 
-        categoriesList: document.getElementById("categoriesList"), 
- 
-        sidebar: document.getElementById("gamesSidebar"), 
-        sidebarOverlay: document.getElementById("sidebarOverlay"), 
-        menuButton: document.getElementById("menuButton"), 
-        sidebarClose: document.getElementById("sidebarClose"), 
- 
-        languageButton: document.getElementById("languageButton"), 
-        languageDropdown: document.getElementById("languageDropdown"), 
-        languageCurrent: document.getElementById("languageCurrent"), 
-        languageOptions: document.querySelectorAll(".language-option"), 
- 
-        themeToggle: document.getElementById("themeToggle"), 
-        themeIcon: document.querySelector(".theme-icon"), 
- 
-        heroPlayButton: document.getElementById("heroPlayButton"), 
-        heroInfoButton: document.getElementById("heroInfoButton"), 
-        heroRandomButton: document.getElementById("heroRandomButton"), 
- 
-        totalGamesCount: document.getElementById("totalGamesCount"), 
-        categoriesCount: document.getElementById("categoriesCount"), 
-        newGamesCount: document.getElementById("newGamesCount"), 
- 
-        favoritesBadge: document.getElementById("favoritesBadge"), 
- 
-        randomGameLink: document.getElementById("randomGameLink"), 
- 
-        profileButton: document.getElementById("profileButton"), 
- 
-        newGamesSection: document.getElementById("newGamesSection"), 
- 
-        featuredGame: document.getElementById("featuredGame") 
-    }; 
- 
- 
-    /* ========================================================= 
-       4. TRANSLATIONS 
+       2. TRANSLATIONS 
        ========================================================= */ 
  
     const TRANSLATIONS = { 
@@ -817,6 +744,79 @@ document.addEventListener("DOMContentLoaded", () => {
  
             profile: "访客" 
         } 
+    }; 
+ 
+ 
+    /* ========================================================= 
+       3. STATE 
+       ========================================================= */ 
+ 
+    const state = { 
+        allGames: [], 
+        filteredGames: [], 
+ 
+        currentCategory: "all", 
+        searchQuery: "", 
+ 
+        currentLanguage: "en", 
+ 
+        favorites: [], 
+ 
+        theme: "dark", 
+ 
+        isSidebarOpen: false, 
+        isSearching: false 
+    }; 
+ 
+ 
+    /* ========================================================= 
+       4. DOM REFERENCES 
+       ========================================================= */ 
+ 
+    const DOM = { 
+        app: document.getElementById("gamesApp"), 
+ 
+        popularGrid: document.getElementById("popularGamesGrid"), 
+        newGrid: document.getElementById("newGamesGrid"), 
+ 
+        searchForm: document.getElementById("gamesSearchForm"), 
+        searchInput: document.getElementById("gamesSearchInput"), 
+        clearSearch: document.getElementById("clearSearch"), 
+        searchEmpty: document.getElementById("searchEmpty"), 
+        resetSearchBtn: document.getElementById("resetSearchBtn"), 
+ 
+        categoriesList: document.getElementById("categoriesList"), 
+ 
+        sidebar: document.getElementById("gamesSidebar"), 
+        sidebarOverlay: document.getElementById("sidebarOverlay"), 
+        menuButton: document.getElementById("menuButton"), 
+        sidebarClose: document.getElementById("sidebarClose"), 
+ 
+        languageButton: document.getElementById("languageButton"), 
+        languageDropdown: document.getElementById("languageDropdown"), 
+        languageCurrent: document.getElementById("languageCurrent"), 
+        languageOptions: document.querySelectorAll(".language-option"), 
+ 
+        themeToggle: document.getElementById("themeToggle"), 
+        themeIcon: document.querySelector(".theme-icon"), 
+ 
+        heroPlayButton: document.getElementById("heroPlayButton"), 
+        heroInfoButton: document.getElementById("heroInfoButton"), 
+        heroRandomButton: document.getElementById("heroRandomButton"), 
+ 
+        totalGamesCount: document.getElementById("totalGamesCount"), 
+        categoriesCount: document.getElementById("categoriesCount"), 
+        newGamesCount: document.getElementById("newGamesCount"), 
+ 
+        favoritesBadge: document.getElementById("favoritesBadge"), 
+ 
+        randomGameLink: document.getElementById("randomGameLink"), 
+ 
+        profileButton: document.getElementById("profileButton"), 
+ 
+        newGamesSection: document.getElementById("newGamesSection"), 
+ 
+        featuredGame: document.getElementById("featuredGame") 
     }; 
  
  
@@ -1618,50 +1618,46 @@ document.addEventListener("DOMContentLoaded", () => {
     } 
  
  
- /* =========================================================
-   14. GAME PLAY
-   ========================================================= */
+    /* =========================================================
+       14. GAME PLAY
+       ========================================================= */
 
-function playGame(id) {
+    function playGame(id) {
 
-    if (
-        id === undefined ||
-        id === null ||
-        id === ""
-    ) {
-        return;
+        if (
+            id === undefined ||
+            id === null ||
+            id === ""
+        ) {
+            return;
+        }
+
+        const url =
+            `${CONFIG.GAME_PLAYER_URL}?id=${encodeURIComponent(id)}`;
+
+        window.location.href = url;
     }
 
-    /*
-        الانتقال إلى صفحة تشغيل اللعبة
-        داخل مجلد game-player
-    */
-    const url =
-        `${CONFIG.GAME_PLAYER_URL}?id=${encodeURIComponent(id)}`;
 
-    window.location.href = url;
-}
+    function playRandomGame() {
 
+        if (!state.allGames.length) {
+            return;
+        }
 
-function playRandomGame() {
+        const index =
+            Math.floor(
+                Math.random() *
+                state.allGames.length
+            );
 
-    if (!state.allGames.length) {
-        return;
+        const game =
+            state.allGames[index];
+
+        if (game) {
+            playGame(game.id);
+        }
     }
-
-    const index =
-        Math.floor(
-            Math.random() *
-            state.allGames.length
-        );
-
-    const game =
-        state.allGames[index];
-
-    if (game) {
-        playGame(game.id);
-    }
-}
  
     /* ========================================================= 
        15. FAVORITES 
@@ -1882,8 +1878,57 @@ function playRandomGame() {
  
  
     /* ========================================================= 
-       17. TRANSLATIONS 
+       17. LANGUAGE STATE (Updated for Auto-Detection) 
        ========================================================= */ 
+ 
+    function loadLanguage() { 
+        try { 
+            // 1. هل المستخدم اختار لغة قبل كده وحفظناها في الـ LocalStorage؟
+            const saved = localStorage.getItem(CONFIG.LANGUAGE_KEY); 
+            if (saved && TRANSLATIONS[saved]) { 
+                state.currentLanguage = saved; 
+                return; 
+            } 
+        } catch (e) {} 
+ 
+        // 2. لو مفيش حفظ سابق، نقرا لغة المتصفح/الجهاز تلقائياً[cite: 2]
+        const browserLang = navigator.language || navigator.userLanguage; 
+        const langCode = browserLang ? browserLang.split('-')[0] : "en"; // تحويل مثل 'ar-EG' إلى 'ar'[cite: 2]
+ 
+        // 3. لو لغة المتصفح مدعومة في القاموس عندك، نستخدمها[cite: 2]
+        if (TRANSLATIONS[langCode]) { 
+            state.currentLanguage = langCode; 
+            return; 
+        } 
+ 
+        // 4. لو اللغة مش مدعومة خالص، نخليها إنجليزي افتراضي[cite: 2]
+        state.currentLanguage = "en"; 
+    } 
+ 
+    function setLanguage(language) { 
+ 
+        if (!TRANSLATIONS[language]) { 
+            return; 
+        } 
+ 
+        state.currentLanguage = 
+            language; 
+ 
+        try { 
+ 
+            localStorage.setItem( 
+                CONFIG.LANGUAGE_KEY, 
+                language 
+            ); 
+ 
+        } catch (error) { 
+            // تجاهل خطأ التخزين 
+        } 
+ 
+        applyTranslations(); 
+ 
+        closeLanguageDropdown(); 
+    } 
  
     function applyTranslations() { 
  
@@ -2007,57 +2052,6 @@ function playRandomGame() {
  
         if (state.allGames.length) { 
             applyFilters(); 
-        } 
-    } 
- 
- 
-    function setLanguage(language) { 
- 
-        if (!TRANSLATIONS[language]) { 
-            return; 
-        } 
- 
-        state.currentLanguage = 
-            language; 
- 
-        try { 
- 
-            localStorage.setItem( 
-                CONFIG.LANGUAGE_KEY, 
-                language 
-            ); 
- 
-        } catch (error) { 
-            // تجاهل خطأ التخزين 
-        } 
- 
- 
-        applyTranslations(); 
- 
-        closeLanguageDropdown(); 
-    } 
- 
- 
-    function loadLanguage() { 
- 
-        try { 
- 
-            const saved = 
-                localStorage.getItem( 
-                    CONFIG.LANGUAGE_KEY 
-                ); 
- 
-            if ( 
-                saved && 
-                TRANSLATIONS[saved] 
-            ) { 
- 
-                state.currentLanguage = 
-                    saved; 
-            } 
- 
-        } catch (error) { 
-            state.currentLanguage = "en"; 
         } 
     } 
  
@@ -3042,7 +3036,7 @@ function playRandomGame() {
         loadTheme(); 
  
  
-        /* Language */ 
+        /* Language (With Auto-Detection) */ 
  
         loadLanguage(); 
  
@@ -3082,7 +3076,7 @@ function playRandomGame() {
         ); 
  
         console.log( 
-            "SFV-X GAMES ENGINE v2.0.0" 
+            "SFV-X GAMES ENGINE v2.0.1" 
         ); 
  
         console.log( 
@@ -3113,4 +3107,4 @@ function playRandomGame() {
  
     init(); 
  
-});     
+});
