@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" id="htmlTag">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SFV-X Games - Welcome</title>
+    <title id="pageTitle">SFV-X Games - Welcome</title>
     <style>
         body {
             background-color: #0d1117;
@@ -21,25 +21,18 @@
             background: #161b22;
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-            max-width: 450px;
+            max-width: 480px;
             width: 90%;
         }
         h1 {
             margin-bottom: 15px;
             color: #58a6ff;
-            font-size: 26px;
+            font-size: 28px;
         }
-        .sub-ar {
-            color: #8b949e;
-            margin-bottom: 8px;
-            font-size: 15px;
-            direction: rtl;
-        }
-        .sub-en {
+        p {
             color: #8b949e;
             margin-bottom: 25px;
-            font-size: 15px;
-            direction: ltr;
+            font-size: 16px;
         }
         .btn {
             display: inline-block;
@@ -49,19 +42,58 @@
             text-decoration: none;
             border-radius: 6px;
             font-weight: bold;
+            font-size: 16px;
             transition: background 0.3s;
         }
         .btn:hover {
             background-color: #2ea043;
         }
+        .lang-badge {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #484f58;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Welcome to SFV-X Games</h1>
-        <div class="sub-ar">مرحباً بك في منصة الألعاب</div>
-        <div class="sub-en">Click below to enter the gaming world</div>
-        <a href="games/01-Entry/games-entry.html" class="btn">Enter / دخول</a>
+        <h1 id="welcomeText">Welcome to SFV-X Games</h1>
+        <p id="descText">Click below to enter the gaming world</p>
+        <a href="games/01-Entry/games-entry.html" class="btn" id="btnText">Enter / دخول</a>
+        <div class="lang-badge" id="detectedLang">Auto-detected Language</div>
     </div>
+
+    <script>
+        // قاموس الترجمات المصغر لصفحة الترحيب بناءً على اللغات اللي عندك
+        const welcomeTranslations = {
+            ar: { welcome: "مرحباً بك في منصة SFV-X Games", desc: "اضغط بالأسفل للدخول إلى عالم الألعاب", btn: "دخول الألعاب", dir: "rtl" },
+            en: { welcome: "Welcome to SFV-X Games", desc: "Click below to enter the gaming world", btn: "Enter Games", dir: "ltr" },
+            es: { welcome: "Bienvenido a SFV-X Games", desc: "Haz clic abajo para entrar al mundo de los juegos", btn: "Entrar", dir: "ltr" },
+            fr: { welcome: "Bienvenue sur SFV-X Games", desc: "Cliquez ci-dessous pour entrer dans le monde du jeu", btn: "Entrer", dir: "ltr" },
+            de: { welcome: "Willkommen bei SFV-X Games", desc: "Klicken Sie unten, um die Spielewelt zu betreten", btn: "Spielen", dir: "ltr" },
+            pt: { welcome: "Bem-vindo ao SFV-X Games", desc: "Clique abaixo para entrar no mundo dos jogos", btn: "Entrar", dir: "ltr" },
+            ru: { welcome: "Добро пожаловать в SFV-X Games", desc: "Нажмите ниже, чтобы войти в игровой мир", btn: "Войти", dir: "ltr" },
+            tr: { welcome: "SFV-X Games'e Hoş Geldiniz", desc: "Oyun dünyasına girmek için aşağıya tıklayın", btn: "Giriş", dir: "ltr" },
+            zh: { welcome: "欢迎来到 SFV-X Games", desc: "点击下方进入游戏世界",btn: "进入", dir: "ltr" }
+        };
+
+        // الكشف عن لغة متصفح الزائر
+        let browserLang = navigator.language || navigator.userLanguage;
+        let langCode = browserLang.split('-')[0]; // تحويل مثل 'ar-EG' إلى 'ar'
+
+        // لو اللغة مش موجودة في القاموس، نحولها إنجليزي (en) تلقائياً
+        if (!welcomeTranslations[langCode]) {
+            langCode = 'en';
+        }
+
+        // تطبيق الترجمة والتصميم على الصفحة تلقائياً
+        const t = welcomeTranslations[langCode];
+        document.getElementById('htmlTag').setAttribute('lang', langCode);
+        document.getElementById('htmlTag').setAttribute('dir', t.dir);
+        document.getElementById('welcomeText').innerText = t.welcome;
+        document.getElementById('descText').innerText = t.desc;
+        document.getElementById('btnText').innerText = t.btn;
+        document.getElementById('detectedLang').innerText = "Language: " + langCode.toUpperCase();
+    </script>
 </body>
 </html>
