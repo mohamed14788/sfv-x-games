@@ -1,6 +1,6 @@
 /* =========================================================
    SFV-X GAMES
-   GAME PLAYER
+   GAME PLAYER - UPDATED WITH ADS & MOBILE FULLSCREEN & MULTI-LANG
    JavaScript
    ========================================================= */
 
@@ -23,7 +23,12 @@ const CONFIG = {
         "sfvx_language",
 
     GAMES_PAGE_URL:
-        "../02-Games/games.html"
+        "../02-Games/games.html",
+
+    AD_CONFIG: {
+        enabled: true, // تفعيل أو إيقاف حاوية الإعلانات
+        bannerSlotId: "sfvx-ad-slot"
+    }
 
 };
 
@@ -1378,7 +1383,7 @@ const TRANSLATIONS = {
 
         heroTitleStrong: "burada başlıyor",
 
-        heroDescription: "Yeni bir oyun koleksiyonu keşfedin ve bir sonraki oyun deneyiminize hazırlanın.",
+        heroDescription: "Yeni bir oyun koleksiyonu keşfedin و bir sonraki oyun deneyiminize hazırlanın.",
 
         playNow: "Şimdi Oyna",
 
@@ -2081,6 +2086,9 @@ function loadGame(
         showGamePlaceholder();
     }
 
+    // تفعيل مساحة الإعلانات عند تحميل اللعبة
+    initGameAds();
+
     showContent();
 }
 
@@ -2111,14 +2119,12 @@ function cleanCategory(
         return "";
     }
 
-    // إزالة "Category" من البداية
     value =
         value.replace(
             /^category/i,
             ""
         ).trim();
 
-    // إزالة "Hypercasual"
     if (
         value.toLowerCase() ===
         "hypercasual"
@@ -2127,7 +2133,6 @@ function cleanCategory(
         return "";
     }
 
-    // تحويل بعض التصنيفات إلى مفاتيح الترجمة
     const normalized =
         value
             .toLowerCase()
@@ -2174,7 +2179,6 @@ function cleanCategory(
 
 function getDisplayCategory(game) {
     const cleaned = cleanCategory(game.category);
-    // إذا كان التصنيف فارغاً أو Hypercasual، نستخدم "Game"
     if (!cleaned) {
         return t("game");
     }
@@ -2222,7 +2226,6 @@ function renderGame(
     }
 
 
-    // إخفاء الـ ID نهائياً من الواجهة
     if (
         elements.metaId
     ) {
@@ -2243,7 +2246,6 @@ function renderGame(
     }
 
 
-    // إخفاء الـ Tags التقنية
     if (
         elements.metaTags
     ) {
@@ -2264,7 +2266,6 @@ function renderGame(
     }
 
 
-    // عرض التصنيف المفيد فقط
     if (
         elements.metaCategory
     ) {
@@ -2455,12 +2456,10 @@ function loadRelatedGames(
     elements.relatedGamesGrid.innerHTML =
         "";
 
-    // تحديث عنوان Related Games
     if (elements.relatedTitle) {
         elements.relatedTitle.textContent = t("relatedGames");
     }
 
-    // تصفية الألعاب حسب التصنيف
     const gameCategory = game.category || "";
     const cleanGameCategory = cleanCategory(gameCategory);
 
@@ -2479,12 +2478,10 @@ function loadRelatedGames(
 
             .filter(
                 item => {
-                    // إذا كان للعبة تصنيف مفيد، نبحث بنفس التصنيف
                     if (cleanGameCategory) {
                         const itemCategory = cleanCategory(item.category);
                         return itemCategory === cleanGameCategory;
                     }
-                    // وإلا نأخذ أي ألعاب أخرى
                     return true;
                 }
             )
@@ -2495,7 +2492,6 @@ function loadRelatedGames(
             );
 
 
-    // إذا لم نجد ما يكفي، نملأ بألعاب عشوائية
     if (
         relatedGames.length < 4
     ) {
@@ -2510,7 +2506,6 @@ function loadRelatedGames(
                 )
             );
 
-        // نضيف لعبة اللعبة الحالية لمنع تكرارها
         existingIds.add(String(game.id));
 
         const additionalGames =
@@ -2663,7 +2658,6 @@ function createRelatedGameCard(
             "click",
             () => {
 
-                // إعادة تحميل الصفحة مع ID الجديد
                 window.location.href =
                     `game-player.html?id=${encodeURIComponent(game.id)}`;
             }
@@ -2671,9 +2665,7 @@ function createRelatedGameCard(
     }
 
 
-    // جعل البطاقة كلها قابلة للنقر
     card.addEventListener("click", function(e) {
-        // منع التنفيذ إذا كان الزر هو المصدر
         if (e.target.closest('.related-play-button')) return;
         window.location.href =
             `game-player.html?id=${encodeURIComponent(game.id)}`;
@@ -2906,21 +2898,15 @@ function updateFavoriteButton() {
    ========================================================= */
 
 function toggleFullscreen() {
-    // التحقق من وجود عنصر اللعبة
     const iframe = document.getElementById('gameIframe');
     const container = elements.gameFrameContainer;
     const wrapper = elements.gameFrameWrapper;
 
-    // إذا كنا بالفعل في وضع Fullscreen، نخرج
     if (document.fullscreenElement) {
         exitFullscreen();
         return;
     }
 
-    // محاولة الدخول إلى Fullscreen بالترتيب:
-    // 1. iframe (الأفضل)
-    // 2. container
-    // 3. wrapper
     let target = iframe || container || wrapper;
 
     if (!target) {
@@ -2935,7 +2921,6 @@ function requestFullscreen(element) {
     if (element.requestFullscreen) {
         element.requestFullscreen().catch(error => {
             console.warn("Fullscreen request failed:", error);
-            // محاولة بديلة: استخدام container أو wrapper
             fallbackFullscreen();
         });
     } else if (element.webkitRequestFullscreen) {
@@ -2947,7 +2932,6 @@ function requestFullscreen(element) {
 }
 
 function fallbackFullscreen() {
-    // محاولة استخدام container إذا فشل الـ iframe
     const container = elements.gameFrameContainer;
     if (container && container !== document.fullscreenElement) {
         if (container.requestFullscreen) {
@@ -2970,17 +2954,16 @@ function exitFullscreen() {
 
 function updateFullscreenButtons() {
     const isFullscreen = Boolean(document.fullscreenElement);
-
     const fullscreenLabel = isFullscreen ? t("exitFullscreen") : t("fullscreen");
 
     if (elements.fullscreenButton) {
-        elements.fullscreenButton.textContent = isFullscreen ? "⛶" : "⛶";
+        elements.fullscreenButton.textContent = "⛶";
         elements.fullscreenButton.setAttribute("title", fullscreenLabel);
         elements.fullscreenButton.setAttribute("aria-label", fullscreenLabel);
     }
 
     if (elements.frameFullscreenButton) {
-        elements.frameFullscreenButton.textContent = isFullscreen ? "⛶" : "⛶";
+        elements.frameFullscreenButton.textContent = "⛶";
         elements.frameFullscreenButton.setAttribute("title", fullscreenLabel);
         elements.frameFullscreenButton.setAttribute("aria-label", fullscreenLabel);
     }
@@ -2988,7 +2971,37 @@ function updateFullscreenButtons() {
 
 
 /* =========================================================
-   24. EVENTS
+   24. ADVERTISEMENTS MANAGER (مدير الإعلانات)
+   ========================================================= */
+
+function initGameAds() {
+    if (!CONFIG.AD_CONFIG || !CONFIG.AD_CONFIG.enabled) return;
+
+    const wrapper = elements.gameFrameWrapper;
+    if (!wrapper) return;
+
+    // منع تكرار إنشاء الحاوية إذا كانت موجودة مسبقاً
+    if (document.getElementById(CONFIG.AD_CONFIG.bannerSlotId)) return;
+
+    const adContainer = document.createElement("div");
+    adContainer.id = CONFIG.AD_CONFIG.bannerSlotId;
+    adContainer.className = "sfvx-ad-container";
+    adContainer.style.cssText = "width: 100%; text-align: center; margin: 15px 0; overflow: hidden;";
+
+    // **ملاحظة:** تقدر تستبدل كود الـ HTML الداخلي هنا بأي كود إعلان بانر تبي تحطه (مثل إعلانات AdSense أو GameMonetize)
+    adContainer.innerHTML = `
+        <div style="background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.1); padding: 12px; border-radius: 8px; color: #888; font-size: 12px; display: inline-block; width: 100%; max-width: 728px;">
+            <span>Advertisement Space</span>
+        </div>
+    `;
+
+    // إدراج حاوية الإعلانات مباشرة أسفل إطار اللعبة
+    wrapper.insertAdjacentElement("afterend", adContainer);
+}
+
+
+/* =========================================================
+   25. EVENTS
    ========================================================= */
 
 function setupEvents() {
@@ -3026,7 +3039,6 @@ function setupEvents() {
     }
 
 
-    // Fullscreen الرئيسي
     if (
         elements.fullscreenButton
     ) {
@@ -3038,7 +3050,6 @@ function setupEvents() {
     }
 
 
-    // Fullscreen الخاص بمنطقة اللعبة
     if (
         elements.frameFullscreenButton
     ) {
@@ -3050,7 +3061,6 @@ function setupEvents() {
     }
 
 
-    // مراقبة تغيير Fullscreen
     document.addEventListener(
         "fullscreenchange",
         updateFullscreenButtons
@@ -3061,10 +3071,8 @@ function setupEvents() {
         updateFullscreenButtons
     );
 
-    // تحديث الأزرار عند التحميل
     setTimeout(updateFullscreenButtons, 100);
 
-    // Keyboard shortcuts
     document.addEventListener(
         "keydown",
         handleKeyboard
@@ -3073,14 +3081,13 @@ function setupEvents() {
 
 
 /* =========================================================
-   25. KEYBOARD
+   26. KEYBOARD
    ========================================================= */
 
 function handleKeyboard(
     event
 ) {
 
-    // Alt + Left Arrow = العودة إلى الألعاب
     if (
         event.altKey &&
         event.key === "ArrowLeft"
@@ -3089,36 +3096,31 @@ function handleKeyboard(
         goBackToGames();
     }
 
-    // F = Fullscreen
     if (
         event.key === "f" ||
         event.key === "F"
     ) {
-        // فقط إذا لم يكن التركيز على input
         const tag = document.activeElement?.tagName || '';
         if (tag !== 'INPUT' && tag !== 'TEXTAREA' && tag !== 'SELECT') {
             toggleFullscreen();
         }
     }
-
-    // Escape = خروج من Fullscreen (يتعامل معه المتصفح تلقائياً)
 }
 
 
 /* =========================================================
-   26. BACK TO GAMES
+   27. BACK TO GAMES
    ========================================================= */
 
 function goBackToGames() {
 
-    // العودة إلى صفحة الألعاب الرئيسية
     window.location.href =
         CONFIG.GAMES_PAGE_URL;
 }
 
 
 /* =========================================================
-   27. UI STATES
+   28. UI STATES
    ========================================================= */
 
 function showLoading() {
@@ -3229,7 +3231,7 @@ function showError(
 
 
 /* =========================================================
-   28. HTML ESCAPE
+   29. HTML ESCAPE
    ========================================================= */
 
 function escapeHTML(
@@ -3268,7 +3270,7 @@ function escapeHTML(
 
 
 /* =========================================================
-   29. LANGUAGE CHANGE API
+   30. LANGUAGE CHANGE API
    ========================================================= */
 
 function setGamePlayerLanguage(
@@ -3303,11 +3305,9 @@ function setGamePlayerLanguage(
     }
 
 
-    // تحديث النصوص الثابتة
     updateStaticTranslations();
 
 
-    // إعادة عرض اللعبة الحالية
     if (
         currentGame
     ) {
@@ -3316,18 +3316,15 @@ function setGamePlayerLanguage(
             currentGame
         );
 
-        // إعادة تحميل الألعاب المرتبطة
         loadRelatedGames(
             currentGame
         );
     }
 
 
-    // تحديث أزرار Fullscreen
     updateFullscreenButtons();
 
 
-    // تحديث جميع الأزرار
     document.querySelectorAll('.related-play-button').forEach(btn => {
         btn.textContent = t("play") + " →";
     });
@@ -3335,7 +3332,7 @@ function setGamePlayerLanguage(
 
 
 /* =========================================================
-   30. DEBUG API
+   31. DEBUG API
    ========================================================= */
 
 window.SFVXGamePlayer = {
@@ -3402,7 +3399,7 @@ window.SFVXGamePlayer = {
 
 
 /* =========================================================
-   31. READY
+   32. READY
    ========================================================= */
 
 console.log(
