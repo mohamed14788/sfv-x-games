@@ -3404,4 +3404,28 @@ window.SFVXGamePlayer = {
 
 console.log(
     "SFV-X Game Player JS loaded successfully."
-);
+); 
+/* =========================================================
+   GAMEMONETIZE WALKTHROUGH & ADS WIDGET
+   ========================================================= */
+function initGameMonetizeAds(gameId) {
+    if (!gameId) return;
+
+    window.VIDEO_OPTIONS = {
+        gameId: gameId,       
+        width: "100%",        
+        height: "480px",      
+        color: "#3f007e",     
+        getads: "true"        
+    };
+
+    let existingScript = document.getElementById("gamemonetize-video-script");
+    if (!existingScript) {
+        let scriptTag = document.createElement("script");
+        scriptTag.id = "gamemonetize-video-script";
+        scriptTag.type = "text/javascript";
+        scriptTag.src = "https://api.gamemonetize.com/video.js";
+        document.body.appendChild(scriptTag);
+    }
+}
+
