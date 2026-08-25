@@ -1,0 +1,1478 @@
+/* =========================================================
+   SFV-X Games
+   Entry Page
+   ========================================================= */
+
+
+/* =========================================================
+   1. المتغيرات الأساسية
+   ========================================================= */
+
+:root {
+    --entry-bg: #03040a;
+    --entry-bg-secondary: #070914;
+
+    --text-primary: #ffffff;
+    --text-secondary: #c4c7d4;
+    --text-muted: #858a9c;
+
+    /* اللون الأساسي للهوية */
+    --accent: #743cff;
+    --accent-light: #a978ff;
+    --accent-dark: #4b18b8;
+
+    /* ألوان الألعاب */
+    --games-cyan: #20cfff;
+    --games-blue: #168cff;
+
+    /* ألوان الفيديوهات */
+    --videos-purple: #a13cff;
+    --videos-pink: #e04cff;
+
+    --border: rgba(255, 255, 255, 0.11);
+
+    --card-bg: rgba(7, 9, 18, 0.86);
+
+    --transition-fast: 0.25s ease;
+    --transition-main:
+        0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
+/* =========================================================
+   2. إعادة الضبط
+   ========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    width: 100%;
+    min-height: 100%;
+
+    background: var(--entry-bg);
+}
+
+
+body {
+    width: 100%;
+    min-height: 100vh;
+
+    background: var(--entry-bg);
+
+    color: var(--text-primary);
+
+    font-family:
+        Arial,
+        "Segoe UI",
+        Tahoma,
+        sans-serif;
+
+    overflow-x: hidden;
+}
+
+
+/* =========================================================
+   3. الصفحة الرئيسية
+   ========================================================= */
+
+.games-entry {
+    position: relative;
+
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    isolation: isolate;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   4. الخلفية
+   ========================================================= */
+
+.entry-background {
+    position: absolute;
+    inset: 0;
+
+    z-index: -1;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(3, 4, 10, 0.20),
+            rgba(3, 4, 10, 0.72)
+        ),
+        url("./images/games-background.png.png");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* =========================================================
+   Glow الخلفية
+   ========================================================= */
+
+.background-glow {
+    position: absolute;
+
+    width: 520px;
+    height: 520px;
+
+    border-radius: 50%;
+
+    filter: blur(120px);
+
+    pointer-events: none;
+}
+
+
+.glow-one {
+    top: -280px;
+    left: 5%;
+
+    background: #168cff;
+
+    opacity: 0.13;
+}
+
+
+.glow-two {
+    right: -120px;
+    bottom: -320px;
+
+    background: #8b32ff;
+
+    opacity: 0.15;
+}
+
+
+/* =========================================================
+   شبكة الخلفية
+   ========================================================= */
+
+.background-grid {
+    position: absolute;
+    inset: 0;
+
+    opacity: 0.13;
+
+    background-image:
+        linear-gradient(
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px
+        );
+
+    background-size: 55px 55px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            transparent,
+            black 18%,
+            black 82%,
+            transparent
+        );
+}
+
+
+/* =========================================================
+   5. المحتوى
+   ========================================================= */
+
+.entry-content {
+    width: min(1180px, 92%);
+
+    padding: 55px 0 35px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   6. العلامة التجارية - SFVX GAMES
+   ========================================================= */
+
+.entry-brand {
+    display: flex;
+    align-items: center;
+    gap: 17px;
+
+    margin-bottom: 30px;
+
+    animation:
+        brandReveal 1s
+        cubic-bezier(0.22, 1, 0.36, 1)
+        both;
+}
+
+
+/* SFVX */
+
+.brand-mark {
+    direction: ltr;
+    unicode-bidi: isolate;
+
+    display: flex;
+    align-items: center;
+
+    font-size: 39px;
+    font-weight: 900;
+
+    letter-spacing: -6px;
+
+    line-height: 1;
+
+    filter:
+        drop-shadow(
+            0 0 14px
+            rgba(255, 255, 255, 0.10)
+        );
+}
+
+
+.brand-mark-s,
+.brand-mark-f,
+.brand-mark-v {
+    color: #f5f7ff;
+
+    text-shadow:
+        0 0 10px
+        rgba(255, 255, 255, 0.15);
+}
+
+
+/* X بنفسجي */
+
+.brand-mark-x {
+    color: #9b63ff;
+
+    margin-left: 7px;
+
+    text-shadow:
+        0 0 10px
+        rgba(145, 78, 255, 0.75),
+        0 0 28px
+        rgba(145, 78, 255, 0.35);
+}
+
+
+/* GAMES بجانب الشعار */
+
+.brand-section {
+    padding-left: 17px;
+
+    border-left:
+        1px solid
+        rgba(255, 255, 255, 0.14);
+
+    color: #cfd2df;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: 4px;
+
+    text-shadow:
+        0 0 15px
+        rgba(180, 190, 255, 0.15);
+
+    animation:
+        sectionReveal 1s
+        0.18s
+        cubic-bezier(0.22, 1, 0.36, 1)
+        both;
+}
+
+
+/* =========================================================
+   7. عنوان الصفحة
+   ========================================================= */
+
+.entry-heading {
+    margin-bottom: 48px;
+
+    text-align: center;
+
+    animation:
+        headingReveal 1s
+        0.15s
+        cubic-bezier(0.22, 1, 0.36, 1)
+        both;
+}
+
+
+/* WELCOME TO */
+
+.heading-small {
+    display: block;
+
+    margin-bottom: 13px;
+
+    color: #70dcff;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: 5px;
+
+    text-shadow:
+        0 0 10px
+        rgba(53, 203, 255, 0.45),
+        0 0 25px
+        rgba(53, 203, 255, 0.18);
+
+    animation:
+        welcomePulse 3.5s
+        ease-in-out
+        infinite;
+}
+
+
+/* SFV-X */
+
+.entry-heading h1 {
+    margin: 0;
+
+    font-size:
+        clamp(
+            40px,
+            5vw,
+            64px
+        );
+
+    line-height: 1;
+
+    font-weight: 900;
+
+    letter-spacing: -2px;
+
+    color: #ffffff;
+
+    text-shadow:
+        0 4px 25px
+        rgba(0, 0, 0, 0.45);
+
+    animation:
+        titleReveal 1.1s
+        0.28s
+        cubic-bezier(0.22, 1, 0.36, 1)
+        both;
+}
+
+
+/* كلمة GAMES داخل العنوان */
+
+.entry-heading h1 strong {
+    display: inline-block;
+
+    margin-right: 5px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #55ddff 0%,
+            #6da8ff 42%,
+            #a35cff 78%,
+            #d36cff 100%
+        );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+
+    color: transparent;
+
+    text-shadow: none;
+
+    filter:
+        drop-shadow(
+            0 0 14px
+            rgba(120, 91, 255, 0.35)
+        );
+
+    animation:
+        titleGlow 4s
+        ease-in-out
+        infinite;
+}
+
+
+/* الجملة العربية */
+
+.entry-heading p {
+    margin-top: 19px;
+
+    color: #d2d5df;
+
+    font-size: 15px;
+
+    line-height: 1.8;
+
+    letter-spacing: 0.2px;
+
+    text-shadow:
+        0 2px 15px
+        rgba(0, 0, 0, 0.65);
+
+    animation:
+        paragraphReveal 1s
+        0.55s
+        cubic-bezier(0.22, 1, 0.36, 1)
+        both;
+}
+
+
+/* =========================================================
+   8. حركات النص
+   ========================================================= */
+
+@keyframes brandReveal {
+
+    0% {
+        opacity: 0;
+
+        transform:
+            translateY(-18px)
+            scale(0.96);
+    }
+
+    100% {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+@keyframes sectionReveal {
+
+    0% {
+        opacity: 0;
+
+        transform:
+            translateX(15px);
+    }
+
+    100% {
+        opacity: 1;
+
+        transform:
+            translateX(0);
+    }
+}
+
+
+@keyframes headingReveal {
+
+    0% {
+        opacity: 0;
+
+        transform:
+            translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+@keyframes titleReveal {
+
+    0% {
+        opacity: 0;
+
+        transform:
+            translateY(22px)
+            scale(0.96);
+    }
+
+    100% {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+@keyframes paragraphReveal {
+
+    0% {
+        opacity: 0;
+
+        transform:
+            translateY(14px);
+    }
+
+    100% {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+@keyframes welcomePulse {
+
+    0%,
+    100% {
+        opacity: 0.78;
+
+        text-shadow:
+            0 0 10px
+            rgba(53, 203, 255, 0.35);
+    }
+
+    50% {
+        opacity: 1;
+
+        text-shadow:
+            0 0 13px
+            rgba(53, 203, 255, 0.60),
+            0 0 28px
+            rgba(53, 203, 255, 0.20);
+    }
+}
+
+
+@keyframes titleGlow {
+
+    0%,
+    100% {
+        filter:
+            drop-shadow(
+                0 0 12px
+                rgba(105, 91, 255, 0.28)
+            );
+    }
+
+    50% {
+        filter:
+            drop-shadow(
+                0 0 22px
+                rgba(170, 75, 255, 0.48)
+            );
+    }
+}
+
+
+/* =========================================================
+   9. البطاقات
+   ========================================================= */
+
+.entry-options {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+    gap: 24px;
+
+    animation:
+        entryFadeUp
+        0.8s
+        0.2s
+        ease
+        both;
+}
+
+
+.entry-card {
+    position: relative;
+
+    min-height: 430px;
+
+    padding: 0;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.12);
+
+    border-radius: 22px;
+
+    background:
+        var(--card-bg);
+
+    color:
+        var(--text-primary);
+
+    text-align: right;
+
+    cursor: pointer;
+
+    overflow: hidden;
+
+    isolation: isolate;
+
+    transition:
+        transform var(--transition-main),
+        border-color var(--transition-main),
+        box-shadow var(--transition-main);
+}
+
+
+.entry-card:hover {
+    transform:
+        translateY(-9px);
+
+    border-color:
+        rgba(255, 255, 255, 0.28);
+}
+
+
+.entry-card:active {
+    transform:
+        translateY(-3px)
+        scale(0.99);
+}
+
+
+/* =========================================================
+   Glow الألعاب
+   ========================================================= */
+
+.play-card:hover {
+    border-color:
+        rgba(32, 207, 255, 0.70);
+
+    box-shadow:
+        0 28px 80px
+        rgba(0, 0, 0, 0.55),
+
+        0 0 55px
+        rgba(32, 207, 255, 0.18),
+
+        inset 0 0 35px
+        rgba(32, 207, 255, 0.04);
+}
+
+
+/* =========================================================
+   Glow الفيديوهات
+   ========================================================= */
+
+.videos-card:hover {
+    border-color:
+        rgba(224, 76, 255, 0.70);
+
+    box-shadow:
+        0 28px 80px
+        rgba(0, 0, 0, 0.55),
+
+        0 0 55px
+        rgba(224, 76, 255, 0.18),
+
+        inset 0 0 35px
+        rgba(224, 76, 255, 0.04);
+}
+
+
+/* =========================================================
+   10. صورة البطاقة
+   ========================================================= */
+
+.card-image {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    z-index: 0;
+}
+
+
+/* =========================================================
+   صورة الألعاب
+   ========================================================= */
+
+.play-image {
+    background:
+        linear-gradient(
+            180deg,
+            rgba(2, 5, 14, 0.05),
+            rgba(2, 5, 14, 0.20)
+        ),
+        url("./images/play-card.png.png");
+
+    background-size: cover;
+
+    background-position:
+        center;
+
+    background-repeat: no-repeat;
+
+    transform:
+        scale(1.001);
+
+    transition:
+        transform
+        0.8s
+        cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        );
+}
+
+
+/* =========================================================
+   صورة الفيديوهات
+   ========================================================= */
+
+.videos-image {
+    background:
+        linear-gradient(
+            180deg,
+            rgba(5, 2, 14, 0.04),
+            rgba(5, 2, 14, 0.20)
+        ),
+        url("./images/videos-card.png.png");
+
+    background-size: cover;
+
+    background-position:
+        center;
+
+    background-repeat: no-repeat;
+
+    transform:
+        scale(1.001);
+
+    transition:
+        transform
+        0.8s
+        cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        );
+}
+
+
+/* =========================================================
+   تكبير الصورة عند Hover
+   ========================================================= */
+
+.entry-card:hover .play-image,
+.entry-card:hover .videos-image {
+    transform:
+        scale(1.055);
+}
+
+
+/* =========================================================
+   11. طبقة الصورة
+   ========================================================= */
+
+.image-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 1;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.05) 0%,
+            rgba(0, 0, 0, 0.08) 30%,
+            rgba(2, 4, 12, 0.30) 48%,
+            rgba(2, 4, 12, 0.88) 82%,
+            rgba(2, 4, 12, 0.98) 100%
+        );
+
+    pointer-events: none;
+}
+
+
+.play-image .image-overlay {
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(0, 10, 22, 0.04) 0%,
+            rgba(0, 30, 55, 0.08) 30%,
+            rgba(0, 13, 28, 0.36) 52%,
+            rgba(1, 7, 18, 0.90) 82%,
+            rgba(1, 5, 14, 0.99) 100%
+        );
+}
+
+
+.videos-image .image-overlay {
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(18, 0, 28, 0.03) 0%,
+            rgba(35, 0, 48, 0.08) 30%,
+            rgba(20, 3, 34, 0.38) 52%,
+            rgba(12, 3, 24, 0.91) 82%,
+            rgba(8, 2, 18, 0.99) 100%
+        );
+}
+
+
+/* =========================================================
+   12. أيقونة البطاقة
+   ========================================================= */
+
+.card-icon {
+    position: absolute;
+
+    z-index: 4;
+
+    top: 50%;
+    left: 50%;
+
+    transform:
+        translate(
+            -50%,
+            -50%
+        );
+
+    width: 96px;
+    height: 96px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.28);
+
+    border-radius: 50%;
+
+    background:
+        rgba(5, 8, 18, 0.30);
+
+    backdrop-filter:
+        blur(10px);
+
+    -webkit-backdrop-filter:
+        blur(10px);
+
+    font-size: 38px;
+
+    box-shadow:
+        0 0 40px
+        rgba(124, 60, 255, 0.20);
+
+    transition:
+        transform var(--transition-main),
+        background var(--transition-main),
+        border-color var(--transition-main),
+        box-shadow var(--transition-main);
+}
+
+
+.play-card .card-icon {
+    color:
+        #7eeaff;
+
+    border-color:
+        rgba(32, 207, 255, 0.48);
+
+    box-shadow:
+        0 0 35px
+        rgba(32, 207, 255, 0.20),
+
+        inset 0 0 25px
+        rgba(32, 207, 255, 0.06);
+}
+
+
+.videos-card .card-icon {
+    color:
+        #f0a1ff;
+
+    border-color:
+        rgba(224, 76, 255, 0.48);
+
+    box-shadow:
+        0 0 35px
+        rgba(224, 76, 255, 0.20),
+
+        inset 0 0 25px
+        rgba(224, 76, 255, 0.06);
+}
+
+
+.entry-card:hover .card-icon {
+    transform:
+        translate(
+            -50%,
+            -50%
+        )
+        scale(1.10);
+}
+
+
+/* =========================================================
+   13. Badge
+   ========================================================= */
+
+.card-badge {
+    position: absolute;
+
+    top: 20px;
+    right: 20px;
+
+    z-index: 5;
+
+    padding:
+        8px 12px;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.16);
+
+    border-radius: 8px;
+
+    background:
+        rgba(0, 0, 0, 0.34);
+
+    color:
+        #e8e8ee;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    backdrop-filter:
+        blur(10px);
+
+    -webkit-backdrop-filter:
+        blur(10px);
+}
+
+
+.play-card .card-badge {
+    color:
+        #86ebff;
+
+    border-color:
+        rgba(32, 207, 255, 0.30);
+
+    box-shadow:
+        0 0 18px
+        rgba(32, 207, 255, 0.08);
+}
+
+
+.videos-card .card-badge {
+    color:
+        #eaa0ff;
+
+    border-color:
+        rgba(224, 76, 255, 0.30);
+
+    box-shadow:
+        0 0 18px
+        rgba(224, 76, 255, 0.08);
+}
+
+
+/* =========================================================
+   14. محتوى البطاقة
+   ========================================================= */
+
+.card-content {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    z-index: 4;
+
+    min-height: 145px;
+
+    padding:
+        28px 28px 26px;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    gap: 18px;
+
+    text-align: right;
+}
+
+
+.card-number {
+    padding-bottom: 5px;
+
+    color:
+        var(--accent-light);
+
+    font-size: 11px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+}
+
+
+.play-card .card-number {
+    color:
+        var(--games-cyan);
+
+    text-shadow:
+        0 0 15px
+        rgba(32, 207, 255, 0.40);
+}
+
+
+.videos-card .card-number {
+    color:
+        var(--videos-pink);
+
+    text-shadow:
+        0 0 15px
+        rgba(224, 76, 255, 0.40);
+}
+
+
+.card-text {
+    flex: 1;
+
+    min-width: 0;
+}
+
+
+.card-text h2 {
+    font-size: 25px;
+
+    line-height: 1.25;
+
+    font-weight: 900;
+
+    margin-bottom: 8px;
+
+    color:
+        #ffffff;
+
+    text-shadow:
+        0 3px 18px
+        rgba(0, 0, 0, 0.65);
+}
+
+
+.card-text p {
+    color:
+        #c9cbd5;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+
+    text-shadow:
+        0 2px 12px
+        rgba(0, 0, 0, 0.70);
+}
+
+
+/* =========================================================
+   15. سهم البطاقة
+   ========================================================= */
+
+.card-arrow {
+    flex-shrink: 0;
+
+    width: 44px;
+    height: 44px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.18);
+
+    border-radius: 50%;
+
+    background:
+        rgba(255, 255, 255, 0.04);
+
+    color:
+        #ffffff;
+
+    font-size: 19px;
+
+    backdrop-filter:
+        blur(8px);
+
+    -webkit-backdrop-filter:
+        blur(8px);
+
+    transition:
+        transform var(--transition-fast),
+        background var(--transition-fast),
+        border-color var(--transition-fast),
+        box-shadow var(--transition-fast);
+}
+
+
+.entry-card:hover .card-arrow {
+    transform:
+        translateX(-6px);
+}
+
+
+.play-card:hover .card-arrow {
+    background:
+        rgba(32, 207, 255, 0.16);
+
+    border-color:
+        rgba(32, 207, 255, 0.50);
+
+    box-shadow:
+        0 0 22px
+        rgba(32, 207, 255, 0.18);
+}
+
+
+.videos-card:hover .card-arrow {
+    background:
+        rgba(224, 76, 255, 0.16);
+
+    border-color:
+        rgba(224, 76, 255, 0.50);
+
+    box-shadow:
+        0 0 22px
+        rgba(224, 76, 255, 0.18);
+}
+
+
+/* =========================================================
+   16. أسفل الصفحة
+   ========================================================= */
+
+.entry-footer {
+    margin-top: 34px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    color:
+        var(--text-muted);
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 3px;
+
+    animation:
+        entryFadeUp
+        0.8s
+        0.3s
+        ease
+        both;
+}
+
+
+.footer-dot {
+    width: 4px;
+    height: 4px;
+
+    border-radius: 50%;
+
+    background:
+        var(--accent-light);
+
+    box-shadow:
+        0 0 8px
+        var(--accent);
+}
+
+
+/* =========================================================
+   17. Animations
+   ========================================================= */
+
+@keyframes entryFadeDown {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+@keyframes entryFadeUp {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+/* =========================================================
+   18. التركيز للكيبورد
+   ========================================================= */
+
+.entry-card:focus-visible {
+    outline:
+        2px solid
+        var(--accent-light);
+
+    outline-offset:
+        4px;
+}
+
+
+/* =========================================================
+   19. الشاشات المتوسطة
+   ========================================================= */
+
+@media (max-width: 800px) {
+
+    .entry-content {
+        padding-top: 40px;
+    }
+
+
+    .entry-options {
+        grid-template-columns: 1fr;
+
+        max-width: 620px;
+    }
+
+
+    .entry-card {
+        min-height: 390px;
+    }
+
+
+    .card-text h2 {
+        font-size: 23px;
+    }
+}
+
+
+/* =========================================================
+   20. الموبايل
+   ========================================================= */
+
+@media (max-width: 520px) {
+
+    .entry-content {
+        width: 90%;
+
+        padding-top: 30px;
+        padding-bottom: 25px;
+    }
+
+
+    .entry-brand {
+        gap: 11px;
+
+        margin-bottom: 23px;
+    }
+
+
+    .brand-mark {
+        font-size: 29px;
+    }
+
+
+    .brand-section {
+        font-size: 8px;
+
+        letter-spacing: 3px;
+    }
+
+
+    .entry-heading {
+        margin-bottom: 32px;
+    }
+
+
+    .heading-small {
+        font-size: 9px;
+
+        letter-spacing: 4px;
+    }
+
+
+    .entry-heading h1 {
+        font-size: 39px;
+    }
+
+
+    .entry-heading p {
+        font-size: 12px;
+    }
+
+
+    .entry-options {
+        gap: 16px;
+    }
+
+
+    .entry-card {
+        min-height: 330px;
+
+        border-radius: 17px;
+    }
+
+
+    .card-icon {
+        width: 72px;
+        height: 72px;
+
+        font-size: 28px;
+    }
+
+
+    .card-badge {
+        top: 15px;
+        right: 15px;
+
+        padding:
+            7px 9px;
+    }
+
+
+    .card-content {
+        min-height: 125px;
+
+        padding:
+            20px 18px 19px;
+
+        gap: 11px;
+    }
+
+
+    .card-text h2 {
+        font-size: 19px;
+
+        margin-bottom: 6px;
+    }
+
+
+    .card-text p {
+        font-size: 11px;
+
+        line-height: 1.5;
+    }
+
+
+    .card-arrow {
+        width: 36px;
+        height: 36px;
+
+        font-size: 16px;
+    }
+
+
+    .entry-footer {
+        margin-top: 24px;
+
+        font-size: 7px;
+    }
+}
+
+
+/* =========================================================
+   21. الشاشات الصغيرة جدًا
+   ========================================================= */
+
+@media (max-width: 360px) {
+
+    .entry-heading h1 {
+        font-size: 34px;
+    }
+
+
+    .entry-card {
+        min-height: 310px;
+    }
+
+
+    .card-text h2 {
+        font-size: 17px;
+    }
+
+
+    .card-text p {
+        font-size: 10px;
+    }
+}
