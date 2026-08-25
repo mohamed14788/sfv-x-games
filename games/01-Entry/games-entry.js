@@ -149,23 +149,35 @@ const TRANSLATIONS = {
 
 
 /* =========================================================
-   3. LANGUAGE STATE
+   3. LANGUAGE STATE (Updated for Auto-Detection)
    ========================================================= */
 
-let currentLanguage = "ar";
+let currentLanguage = "en";
 
 function getCurrentLanguage() {
     try {
+        // 1. هل المستخدم اختار لغة قبل كده وحفظناها في الـ LocalStorage؟
         const saved = localStorage.getItem(CONFIG.LANGUAGE_KEY);
         if (saved && TRANSLATIONS[saved]) {
             return saved;
         }
     } catch (e) {}
-    return "ar";
+
+    // 2. لو مفيش حفظ سابق، نقرا لغة المتصفح/الجهاز تلقائياً
+    const browserLang = navigator.language || navigator.userLanguage;
+    const langCode = browserLang.split('-')[0]; // تحويل مثل 'ar-EG' إلى 'ar'
+
+    // 3. لو لغة المتصفح مدعومة في القاموس عندك، نستخدمها
+    if (TRANSLATIONS[langCode]) {
+        return langCode;
+    }
+
+    // 4. لو اللغة مش مدعومة خالص (مثل شخص عربي وموبايله إنجليزي أو أي لغة أخرى)، نخليها إنجليزي افتراضي
+    return "en";
 }
 
 function t(key) {
-    const lang = TRANSLATIONS[currentLanguage] || TRANSLATIONS.ar;
+    const lang = TRANSLATIONS[currentLanguage] || TRANSLATIONS.en;
     return lang[key] || key;
 }
 
