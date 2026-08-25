@@ -1970,18 +1970,7 @@ async function loadGamesDatabase(
             await response.json();
 
         if (
-            Array.isArray(data)
-        ) {
-
-            gamePlayerDatabase =
-                data;
-
-        } else if (
-            data &&
-            Array.isArray(
-                data.games
-            )
-/* =========================================================
+            Array.isArray(da/* =========================================================
    10. LOAD GAME
    ========================================================= */
 
@@ -2052,41 +2041,24 @@ function loadGame(
         showGamePlaceholder();
     }
 
-    // تشغيل إعلانات وفيديوهات GameMonetize بشكل آمن تماماً لا يوقف تحميل اللعبة أبداً
-    try {
-        if (typeof initGameMonetizeAds === 'function') {
-            initGameMonetizeAds(game.id);
-        }
-    } catch (e) {
-        console.error("GameMonetize Ads Error:", e);
-    }
+    // تفعيل مساحة الإعلانات القديمة
+    initGameAds();
 
     showContent();
 }
-           ) {
+       ta)
+        ) {
 
             gamePlayerDatabase =
-                data.games;
+                data;
 
-        } else {
+        } else if (
+            data &&
+            Array.isArray(
+                data.games
+            )
 
-            throw new Error(
-                "games.json does not contain a valid games array."
-            );
-        }
 
-        console.log(
-            `SFV-X Games loaded: ${gamePlayerDatabase.length} games`
-        );
-
-        loadGame(
-            gameId
-        );
-
-    } catch (error) {
-
-        console.error(
-            "SFV-X Game Player database error:"
 /* =========================================================
    11. CLEAN CATEGORY
    ========================================================= */
