@@ -1981,30 +1981,6 @@ async function loadGamesDatabase(
             Array.isArray(
                 data.games
             )
-        ) {
-
-            gamePlayerDatabase =
-                data.games;
-
-        } else {
-
-            throw new Error(
-                "games.json does not contain a valid games array."
-            );
-        }
-
-        console.log(
-            `SFV-X Games loaded: ${gamePlayerDatabase.length} games`
-        );
-
-        loadGame(
-            gameId
-        );
-
-    } catch (error) {
-
-        console.error(
-            "SFV-X Game Player database error:",
 /* =========================================================
    10. LOAD GAME
    ========================================================= */
@@ -2076,40 +2052,41 @@ function loadGame(
         showGamePlaceholder();
     }
 
-    // تفعيل إعلانات وفيديوهات GameMonetize بالـ ID الخاص باللعبة الحالية
-    if (typeof initGameMonetizeAds === 'function') {
-        initGameMonetizeAds(game.id);
+    // تشغيل إعلانات وفيديوهات GameMonetize بشكل آمن تماماً لا يوقف تحميل اللعبة أبداً
+    try {
+        if (typeof initGameMonetizeAds === 'function') {
+            initGameMonetizeAds(game.id);
+        }
+    } catch (e) {
+        console.error("GameMonetize Ads Error:", e);
     }
 
     showContent();
 }
-           error
+           ) {
+
+            gamePlayerDatabase =
+                data.games;
+
+        } else {
+
+            throw new Error(
+                "games.json does not contain a valid games array."
+            );
+        }
+
+        console.log(
+            `SFV-X Games loaded: ${gamePlayerDatabase.length} games`
         );
 
-        showError(
-            t("databaseError")
-        );
-    }
-}
-
-
-/* =========================================================
-   10. LOAD GAME
-   ========================================================= */
-
-function loadGame(
-    gameId
-) {
-
-    showLoading();
-
-    const normalizedId =
-        String(
+        loadGame(
             gameId
-        ).trim();
+        );
 
+    } catch (error) {
 
-
+        console.error(
+            "SFV-X Game Player database error:"
 /* =========================================================
    11. CLEAN CATEGORY
    ========================================================= */
