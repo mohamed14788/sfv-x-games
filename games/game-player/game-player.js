@@ -1938,79 +1938,72 @@ function getGameIdFromURL() {
 
 
 /* =========================================================
-   9. LOAD DATABASE
+   9. LOAD DATABASE (OPTIMIZED & FAST)
    ========================================================= */
 
-async function loadGamesDatabase(
-    gameId
-) {
-
+async function loadGamesDatabase(gameId) {
     showLoading();
 
+    const CACHE_KEY = "sfvx_games_cache_v2";
+    const CACHE_TIME_KEY = "sfvx_games_cache_time";
+    const CACHE_DURATION = 10 * 60 * 1000; // صلاحية التخزين 10 دقائق مثلاً
+
     try {
+        const cachedData = localStorage.getItem(CACHE_KEY);
+        const cachedTime = localStorage.getItem(CACHE_TIME_KEY);
+        const now = new Date().getTime();
 
-        const response =
-            await fetch(
-                CONFIG.GAMES_DATABASE_URL,
-                {
-                    cache: "no-store"
-                }
-            );
-
-        if (
-            !response.ok
-        ) {
-
-            throw new Error(
-                `Failed to load games.json (${response.status})`
-            );
+        // استخدام البيانات المخزنة محلياً إذا كانت متوفرة وسريعة
+        if (cachedData && cachedTime && (now - cachedTime < CACHE_DURATION)) {
+            gamePlayerDatabase = JSON.parse(cachedData);
+            console.log(`SFV-X Games loaded from LocalStorage: ${gamePlayerDatabase.length} games`);
+            loadGame(gameId);
+            return;
         }
 
-        const data =
-            await response.json();
+        // إذا لم تكن مخزنة، يتم تحميلها من الخادم
+        const response = await fetch(CONFIG.GAMES_DATABASE_URL, {
+            cache: "default"
+        });
 
-        if (
-            Array.isArray(data)
-        ) {
+        if (!response.ok) {
+            throw new Error(`Failed to load games.json (${response.status})`);
+        }
 
-            gamePlayerDatabase =
-                data;
+        const data = await response.json();
 
-        } else if (
-            data &&
-            Array.isArray(
-                data.games
-            )
-        ) {
-
-            gamePlayerDatabase =
-                data.games;
-
+        if (Array.isArray(data)) {
+            gamePlayerDatabase = data;
+        } else if (data && Array.isArray(data.games)) {
+            gamePlayerDatabase = data.games;
         } else {
-
-            throw new Error(
-                "games.json does not contain a valid games array."
-            );
+            throw new Error("games.json does not contain a valid games array.");
         }
 
-        console.log(
-            `SFV-X Games loaded: ${gamePlayerDatabase.length} games`
-        );
+        // حفظ البيانات في LocalStorage لتسريع التحميل في المرات القادمة
+        try {
+            localStorage.setItem(CACHE_KEY, JSON.stringify(gamePlayerDatabase));
+            localStorage.setItem(CACHE_TIME_KEY, now);
+        } catch (e) {
+            console.warn("Storage quota exceeded or disabled", e);
+        }
 
-        loadGame(
-            gameId
-        );
+        console.log(`SFV-X Games loaded from Network: ${gamePlayerDatabase.length} games`);
+        loadGame(gameId);
 
     } catch (error) {
+        console.error("SFV-X Game Player database error:", error);
 
-        console.error(
-            "SFV-X Game Player database error:",
-            error
-        );
+        // محاولة جلب البيانات المخزنة كخطة بديلة حتى لو انتهت صلاحيتها في حال انقطاع النت
+        const fallbackData = localStorage.getItem(CACHE_KEY);
+        if (fallbackData) {
+            gamePlayerDatabase = JSON.parse(fallbackData);
+            console.log("Loaded fallback games from cache due to network error.");
+            loadGame(gameId);
+            return;
+        }
 
-        showError(
-            t("databaseError")
-        );
+        showError(t("databaseError"));
     }
 }
 
