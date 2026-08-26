@@ -2980,7 +2980,16 @@ function initGameAds() {
     const wrapper = elements.gameFrameWrapper;
     if (!wrapper) return;
 
-    // منع تكرار إنشاء الحاوية إذا كانت موجودة مسبقاً
+    // 1. حقن إعلان السوشيال بار المتحرك (يُفضل وضعه في نهاية الصفحة أو الـ body)
+    if (!document.getElementById("sfvx-social-bar")) {
+        const socialBarScript = document.createElement("script");
+        socialBarScript.id = "sfvx-social-bar";
+        socialBarScript.src = "https://widthwidowzoology.com/c2/66/cf/c266cfbed2d41fe263990bd04180e99f.js";
+        socialBarScript.async = true;
+        document.body.appendChild(socialBarScript);
+    }
+
+    // 2. منع تكرار إنشاء حاوية البانر إذا كانت موجودة مسبقاً
     if (document.getElementById(CONFIG.AD_CONFIG.bannerSlotId)) return;
 
     const adContainer = document.createElement("div");
@@ -2988,7 +2997,7 @@ function initGameAds() {
     adContainer.className = "sfvx-ad-container";
     adContainer.style.cssText = "width: 100%; text-align: center; margin: 15px 0; overflow: hidden;";
 
-    // 1. حقن إعدادات الإعلان (atOptions)
+    // حقن إعدادات البانر العادي (atOptions)
     const optionsScript = document.createElement("script");
     optionsScript.type = "text/javascript";
     optionsScript.text = `
@@ -3002,17 +3011,16 @@ function initGameAds() {
     `;
     adContainer.appendChild(optionsScript);
 
-    // 2. حقن سكربت التشغيل الأساسي لـ Adsterra
+    // حقن سكربت التشغيل الخاص بالبانر العادي
     const invokeScript = document.createElement("script");
     invokeScript.type = "text/javascript";
-    invokeScript.src = "https://www.highrevenueformat.com/6e3e9e059a733a5d1e8d54dd05b54467/invoke.js";
+    invokeScript.src = "https://widthwidowzoology.com/6e3e9e059a733a5d1e8d54dd05b54467/invoke.js";
     invokeScript.async = true;
     adContainer.appendChild(invokeScript);
 
-    // إدراج حاوية الإعلانات مباشرة أسفل إطار اللعبة
+    // إدراج حاوية البانر مباشرة أسفل إطار اللعبة
     wrapper.insertAdjacentElement("afterend", adContainer);
 }
-
 
 /* =========================================================
    25. EVENTS
