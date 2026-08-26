@@ -2981,17 +2981,23 @@ function initGameAds() {
     adContainer.className = "sfvx-ad-container";
     adContainer.style.cssText = "width: 100%; text-align: center; margin: 15px 0; overflow: hidden;";
 
-    // **ملاحظة:** تقدر تستبدل كود الـ HTML الداخلي هنا بأي كود إعلان بانر تبي تحطه (مثل إعلانات AdSense أو GameMonetize)
+    // كود الإعلان الحقيقي
     adContainer.innerHTML = `
-        <div style="background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.1); padding: 12px; border-radius: 8px; color: #888; font-size: 12px; display: inline-block; width: 100%; max-width: 728px;">
-            <span>Advertisement Space</span>
-        </div>
+        <script>
+          atOptions = {
+            'key' : '6e3e9e059a733a5d1e8d54dd05b54467',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+          };
+        </script>
+        <script src="https://www.highrevenueformat.com/6e3e9e059a733a5d1e8d54dd05b54467/invoke.js"></script>
     `;
 
     // إدراج حاوية الإعلانات مباشرة أسفل إطار اللعبة
     wrapper.insertAdjacentElement("afterend", adContainer);
 }
-
 
 /* =========================================================
    25. EVENTS
