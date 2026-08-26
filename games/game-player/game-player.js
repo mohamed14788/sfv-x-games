@@ -2981,7 +2981,7 @@ function initGameAds() {
     adContainer.className = "sfvx-ad-container";
     adContainer.style.cssText = "width: 100%; text-align: center; margin: 15px 0; overflow: hidden;";
 
-    // كود الإعلان الحقيقي
+    // كود إعلان أستررا (Adsterra) الحقيقي
     adContainer.innerHTML = `
         <script>
           atOptions = {
@@ -2998,7 +2998,6 @@ function initGameAds() {
     // إدراج حاوية الإعلانات مباشرة أسفل إطار اللعبة
     wrapper.insertAdjacentElement("afterend", adContainer);
 }
-
 /* =========================================================
    25. EVENTS
    ========================================================= */
