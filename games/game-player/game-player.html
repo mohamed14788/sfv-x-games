@@ -2,73 +2,113 @@
 <html lang="en" dir="ltr">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="theme-color" content="#050507">
+    <!-- =====================================================
+         SFV-X GAMES
+         GAME PLAYER
+         ===================================================== -->
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="theme-color"
+        content="#050507">
+
     <meta
         name="description"
-        content="Play HTML5 games on SFV-X Games."
-    >
+        content="SFV-X Games Player">
 
-    <title>SFV-X Games | Game Player</title>
+    <title>
+        SFV-X Games | Game Player
+    </title>
 
-    <link rel="preconnect" href="https://img.gamemonetize.com">
+    <!-- =====================================================
+         PERFORMANCE
+         ===================================================== -->
+
+    <link
+        rel="preconnect"
+        href="https://img.gamemonetize.com">
+
+    <!-- =====================================================
+         GAME PLAYER CSS
+         ===================================================== -->
 
     <link
         rel="stylesheet"
-        href="game-player.css"
-    >
+        href="game-player.css">
+
 </head>
+
 
 <body>
 
+    <!-- =====================================================
+         SFV-X GAME PLAYER APP
+         ===================================================== -->
+
     <div
         class="game-player-app"
-        id="gamePlayerApp"
-    >
+        id="gamePlayerApp">
 
-        <!-- =====================================================
+
+        <!-- =================================================
              HEADER
-             ===================================================== -->
+             ================================================= -->
 
         <header class="game-player-header">
+
+            <!-- SFV-X GAMES BRAND -->
 
             <a
                 href="../02-Games/games.html"
                 class="player-logo"
-                aria-label="SFV-X Games Home"
-            >
-                <span class="logo-main">SFV-X</span>
-                <span class="logo-section">GAMES</span>
+                aria-label="SFV-X Games Home">
+
+                <span class="logo-main">
+                    SFV-X
+                </span>
+
+                <span class="logo-section">
+                    GAMES
+                </span>
+
             </a>
 
 
+            <!-- HEADER ACTIONS -->
+
             <div class="player-header-actions">
 
-                <!-- Back to Games -->
+                <!-- BACK -->
 
                 <button
                     class="player-header-button"
                     id="backButton"
                     type="button"
                     aria-label="Back to games"
-                    title="Back to Games"
-                >
+                    title="Back to games">
+
                     ←
+
                 </button>
 
 
-                <!-- Fullscreen -->
+                <!-- FULLSCREEN -->
 
                 <button
                     class="player-header-button"
                     id="fullscreenButton"
                     type="button"
                     aria-label="Fullscreen"
-                    title="Fullscreen"
-                >
+                    title="Fullscreen">
+
                     ⛶
+
                 </button>
 
             </div>
@@ -76,9 +116,9 @@
         </header>
 
 
-        <!-- =====================================================
+        <!-- =================================================
              MAIN
-             ===================================================== -->
+             ================================================= -->
 
         <main class="game-player-main">
 
@@ -89,10 +129,11 @@
 
             <section
                 class="player-loading"
-                id="playerLoading"
-            >
+                id="playerLoading">
 
-                <div class="loading-spinner"></div>
+                <div
+                    class="loading-spinner">
+                </div>
 
                 <h1>
                     Loading Game...
@@ -112,10 +153,10 @@
             <section
                 class="player-error"
                 id="playerError"
-                hidden
-            >
+                hidden>
 
-                <div class="error-icon">
+                <div
+                    class="error-icon">
                     ⚠️
                 </div>
 
@@ -130,9 +171,10 @@
                 <button
                     class="player-primary-button"
                     id="errorBackButton"
-                    type="button"
-                >
+                    type="button">
+
                     ← Back to Games
+
                 </button>
 
             </section>
@@ -145,8 +187,7 @@
             <section
                 class="game-player-content"
                 id="gamePlayerContent"
-                hidden
-            >
+                hidden>
 
 
                 <!-- =============================================
@@ -155,18 +196,24 @@
 
                 <div class="game-info">
 
+
+                    <!-- GAME INFORMATION -->
+
                     <div class="game-info-main">
 
                         <span
                             class="game-category"
-                            id="gameCategory"
-                        >
+                            id="gameCategory">
+
                             GAME
+
                         </span>
+
 
                         <h1 id="gameTitle">
                             Game Title
                         </h1>
+
 
                         <p id="gameDescription">
                             Game description
@@ -175,14 +222,18 @@
                     </div>
 
 
+                    <!-- GAME ACTIONS -->
+
                     <div class="game-actions">
 
                         <button
                             class="player-action-button"
                             id="favoriteButton"
                             type="button"
-                        >
+                            aria-label="Favorite">
+
                             ☆ Favorite
+
                         </button>
 
                     </div>
@@ -196,14 +247,18 @@
 
                 <div
                     class="game-frame-wrapper"
-                    id="gameFrameWrapper"
-                >
+                    id="gameFrameWrapper">
+
+
+                    <!-- GAME PLAYER HEADER -->
 
                     <div class="game-frame-header">
 
                         <div class="frame-status">
 
-                            <span class="status-dot"></span>
+                            <span
+                                class="status-dot">
+                            </span>
 
                             <span>
                                 SFV-X GAME PLAYER
@@ -212,15 +267,18 @@
                         </div>
 
 
+                        <!-- FRAME CONTROLS -->
+
                         <div class="frame-controls">
 
                             <button
                                 id="frameFullscreenButton"
                                 type="button"
                                 aria-label="Fullscreen game"
-                                title="Fullscreen Game"
-                            >
+                                title="Fullscreen game">
+
                                 ⛶
+
                             </button>
 
                         </div>
@@ -228,33 +286,34 @@
                     </div>
 
 
+                    <!-- GAME FRAME -->
+
                     <div
                         class="game-frame-container"
-                        id="gameFrameContainer"
-                    >
+                        id="gameFrameContainer">
+
                         <!--
                             game-player.js
-                            يقوم بإنشاء iframe هنا
+                            سيقوم بإنشاء iframe اللعبة هنا
                         -->
+
                     </div>
 
                 </div>
 
 
-                <!-- =============================================
-                     GAMEMONETIZE
-                     ============================================= -->
+                <!-- =================================================
+                     ADVERTISEMENT AREA
+                     =================================================
 
-                <div
-                    class="gamemonetize-ad-section"
-                    id="gamemonetizeAdSection"
-                >
+                     ملاحظة:
+                     لا نضع sfvx-ad-slot هنا يدويًا.
 
-                    <div
-                        id="gamemonetize-video"
-                    ></div>
+                     game-player.js يقوم بإنشاء حاوية الإعلان
+                     تلقائيًا بعد gameFrameWrapper.
 
-                </div>
+                     لذلك يتم الحفاظ على نظام الإعلانات الحالي.
+                     ================================================= -->
 
 
                 <!-- =============================================
@@ -262,6 +321,9 @@
                      ============================================= -->
 
                 <div class="game-meta">
+
+
+                    <!-- CATEGORY -->
 
                     <div class="meta-item">
 
@@ -276,6 +338,8 @@
                     </div>
 
 
+                    <!-- TAGS -->
+
                     <div class="meta-item">
 
                         <span class="meta-label">
@@ -288,6 +352,21 @@
 
                     </div>
 
+
+                    <!-- GAME ID -->
+
+                    <div class="meta-item">
+
+                        <span class="meta-label">
+                            Game ID
+                        </span>
+
+                        <strong id="metaId">
+                            —
+                        </strong>
+
+                    </div>
+
                 </div>
 
 
@@ -295,18 +374,28 @@
                      RELATED GAMES
                      ============================================= -->
 
-                <section class="related-games-section">
+                <section
+                    class="related-games-section">
+
+
+                    <!-- SECTION HEADER -->
 
                     <div class="section-header">
 
                         <div>
 
-                            <span class="section-kicker">
+                            <span
+                                class="section-kicker">
+
                                 DISCOVER MORE
+
                             </span>
 
-                            <h2>
+
+                            <h2 id="relatedTitle">
+
                                 More Games
+
                             </h2>
 
                         </div>
@@ -314,26 +403,30 @@
                     </div>
 
 
+                    <!-- RELATED GAMES GRID -->
+
                     <div
                         class="related-games-grid"
-                        id="relatedGamesGrid"
-                    >
+                        id="relatedGamesGrid">
+
                         <!--
                             Related games are generated
                             dynamically by game-player.js
                         -->
+
                     </div>
 
                 </section>
+
 
             </section>
 
         </main>
 
 
-        <!-- =====================================================
+        <!-- =================================================
              FOOTER
-             ===================================================== -->
+             ================================================= -->
 
         <footer class="game-player-footer">
 
@@ -351,6 +444,7 @@
 
         </footer>
 
+
     </div>
 
 
@@ -358,7 +452,10 @@
          JAVASCRIPT
          ===================================================== -->
 
-    <script src="game-player.js"></script>
+    <script
+        src="game-player.js">
+    </script>
+
 
 </body>
 
