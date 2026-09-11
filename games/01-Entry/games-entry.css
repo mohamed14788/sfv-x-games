@@ -108,13 +108,13 @@ body {
 
     overflow: hidden;
 
-    background:
+        background:
         linear-gradient(
             180deg,
             rgba(3, 4, 10, 0.20),
             rgba(3, 4, 10, 0.72)
         ),
-        url("./images/games-background.png.png");
+        url("games-background.webp");
 
     background-size: cover;
     background-position: center;
