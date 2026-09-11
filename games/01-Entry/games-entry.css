@@ -737,7 +737,8 @@ body {
             rgba(2, 5, 14, 0.05),
             rgba(2, 5, 14, 0.20)
            
-        ),url("videos-card.webp");
+        ) 
+       url("play-card.webp");
 
     background-size: cover;
 
