@@ -34,7 +34,6 @@
             color: #58a6ff;
             font-size: 28px;
         }
-        /* تم تغيير اللون إلى درجة أفتح وأوضح لحل مشكلة التباين تماماً */
         p {
             color: #c9d1d9; 
             margin-bottom: 25px;
@@ -54,7 +53,6 @@
         .btn:hover {
             background-color: #2ea043;
         }
-        /* تم تعديل لون شارة اللغة ليكون عالي التباين وواضح */
         .lang-badge {
             margin-top: 20px;
             font-size: 13px;
@@ -63,7 +61,6 @@
     </style>
 </head>
 <body>
-    <!-- تم إضافة وسم main لحل مشكلة "المستند لا يتضمن معلماً رئيسياً" -->
     <main class="container">
         <h1 id="welcomeText">Welcome to SFV-X Games</h1>
         <p id="descText">Click below to enter the gaming world</p>
@@ -105,6 +102,59 @@
                 welcome: "Willkommen bei SFV-X Games", 
                 desc: "Klicken Sie unten, um die Spielewelt zu betreten", 
                 btn: "Spielen", 
+                dir: "ltr",
+                metaDesc: "Willkommen bei SFV-X Games - Betreten Sie die Spielewelt."
+            },
+            pt: { 
+                welcome: "Bem-vindo ao SFV-X Games", 
+                desc: "Clique abaixo para entrar no mundo dos jogos", 
+                btn: "Entrar", 
+                dir: "ltr",
+                metaDesc: "Bem-vindo ao SFV-X Games - Entre no mundo dos jogos."
+            },
+            ru: { 
+                welcome: "Добро пожаловать в SFV-X Games", 
+                desc: "Нажмите ниже, чтобы войти в игровой мир", 
+                btn: "Войти", 
+                dir: "ltr",
+                metaDesc: "Добро пожаловать в SFV-X Games - Войдите в игровой мир."
+            },
+            tr: { 
+                welcome: "SFV-X Games'e Hoş Geldiniz", 
+                desc: "Oyun dünyasına girmek için aşağıya tıklayın", 
+                btn: "Giriş", 
+                dir: "ltr",
+                metaDesc: "SFV-X Games'e Hoş Geldiniz - Oyun dünyasına giriş yapın."
+            },
+            zh: { 
+                welcome: "欢迎来到 SFV-X Games", 
+                desc: "点击下方进入游戏世界",
+                btn: "进入", 
+                dir: "ltr",
+                metaDesc: "欢迎来到 SFV-X Games - 进入精彩的游戏世界."
+            }
+        };
+
+        let browserLang = navigator.language || navigator.userLanguage;
+        let langCode = browserLang ? browserLang.split('-')[0] : 'en';
+
+        if (!welcomeTranslations[langCode]) {
+            langCode = 'en';
+        }
+
+        const t = welcomeTranslations[langCode];
+        document.getElementById('htmlTag').setAttribute('lang', langCode);
+        document.getElementById('htmlTag').setAttribute('dir', t.dir);
+        document.getElementById('welcomeText').innerText = t.welcome;
+        document.getElementById('descText').innerText = t.desc;
+        document.getElementById('btnText').innerText = t.btn;
+        document.getElementById('detectedLang').innerText = "Language: " + langCode.toUpperCase();
+        
+        const metaDescTag = document.querySelector('meta[name="description"]');
+        if (metaDescTag) {
+            metaDescTag.setAttribute('content', t.metaDesc);
+        }
+
                 dir: "ltr",
                 metaDesc: "Willkommen bei SFV-X Games - Betreten Sie die Spielewelt."
             },
