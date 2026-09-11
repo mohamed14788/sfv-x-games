@@ -3,6 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- تم إضافة الوصف التعريفي هنا لحل مشكلة الـ SEO تماماً -->
+    <meta name="description" content="Welcome to SFV-X Games - Explore and enter the ultimate gaming world with multiple language support.">
+    
+    <!-- تحسين محركات البحث والكلمات المفتاحية -->
+    <meta name="keywords" content="SFV-X Games, online games, gaming platform, play games">
+    <meta name="author" content="SFV-X Games">
+
     <title id="pageTitle">SFV-X Games - Welcome</title>
     <style>
         body {
@@ -66,15 +74,69 @@
     <script>
         // قاموس الترجمات المصغر لصفحة الترحيب بناءً على اللغات اللي عندك
         const welcomeTranslations = {
-            ar: { welcome: "مرحباً بك في منصة SFV-X Games", desc: "اضغط بالأسفل للدخول إلى عالم الألعاب", btn: "دخول الألعاب", dir: "rtl" },
-            en: { welcome: "Welcome to SFV-X Games", desc: "Click below to enter the gaming world", btn: "Enter Games", dir: "ltr" },
-            es: { welcome: "Bienvenido a SFV-X Games", desc: "Haz clic abajo para entrar al mundo de los juegos", btn: "Entrar", dir: "ltr" },
-            fr: { welcome: "Bienvenue sur SFV-X Games", desc: "Cliquez ci-dessous pour entrer dans le monde du jeu", btn: "Entrer", dir: "ltr" },
-            de: { welcome: "Willkommen bei SFV-X Games", desc: "Klicken Sie unten, um die Spielewelt zu betreten", btn: "Spielen", dir: "ltr" },
-            pt: { welcome: "Bem-vindo ao SFV-X Games", desc: "Clique abaixo para entrar no mundo dos jogos", btn: "Entrar", dir: "ltr" },
-            ru: { welcome: "Добро пожаловать в SFV-X Games", desc: "Нажмите ниже, чтобы войти в игровой мир", btn: "Войти", dir: "ltr" },
-            tr: { welcome: "SFV-X Games'e Hoş Geldiniz", desc: "Oyun dünyasına girmek için aşağıya tıklayın", btn: "Giriş", dir: "ltr" },
-            zh: { welcome: "欢迎来到 SFV-X Games", desc: "点击下方进入游戏世界",btn: "进入", dir: "ltr" }
+            ar: { 
+                welcome: "مرحباً بك في منصة SFV-X Games", 
+                desc: "اضغط بالأسفل للدخول إلى عالم الألعاب", 
+                btn: "دخول الألعاب", 
+                dir: "rtl",
+                metaDesc: "مرحباً بك في منصة SFV-X Games - استكشف وادخل إلى عالم الألعاب الممتع."
+            },
+            en: { 
+                welcome: "Welcome to SFV-X Games", 
+                desc: "Click below to enter the gaming world", 
+                btn: "Enter Games", 
+                dir: "ltr",
+                metaDesc: "Welcome to SFV-X Games - Explore and enter the ultimate gaming world."
+            },
+            es: { 
+                welcome: "Bienvenido a SFV-X Games", 
+                desc: "Haz clic abajo para entrar al mundo de los juegos", 
+                btn: "Entrar", 
+                dir: "ltr",
+                metaDesc: "Bienvenido a SFV-X Games - Entra al mundo de los juegos."
+            },
+            fr: { 
+                welcome: "Bienvenue sur SFV-X Games", 
+                desc: "Cliquez ci-dessous pour entrer dans le monde du jeu", 
+                btn: "Entrer", 
+                dir: "ltr",
+                metaDesc: "Bienvenue sur SFV-X Games - Entrez dans le monde du jeu."
+            },
+            de: { 
+                welcome: "Willkommen bei SFV-X Games", 
+                desc: "Klicken Sie unten, um die Spielewelt zu betreten", 
+                btn: "Spielen", 
+                dir: "ltr",
+                metaDesc: "Willkommen bei SFV-X Games - Betreten Sie die Spielewelt."
+            },
+            pt: { 
+                welcome: "Bem-vindo ao SFV-X Games", 
+                desc: "Clique abaixo para entrar no mundo dos jogos", 
+                btn: "Entrar", 
+                dir: "ltr",
+                metaDesc: "Bem-vindo ao SFV-X Games - Entre no mundo dos jogos."
+            },
+            ru: { 
+                welcome: "Добро пожаловать в SFV-X Games", 
+                desc: "Нажмите ниже, чтобы войти в игровой мир", 
+                btn: "Войти", 
+                dir: "ltr",
+                metaDesc: "Добро пожаловать в SFV-X Games - Войдите в игровой мир."
+            },
+            tr: { 
+                welcome: "SFV-X Games'e Hoş Geldiniz", 
+                desc: "Oyun dünyasına girmek için aşağıya tıklayın", 
+                btn: "Giriş", 
+                dir: "ltr",
+                metaDesc: "SFV-X Games'e Hoş Geldiniz - Oyun dünyasına giriş yapın."
+            },
+            zh: { 
+                welcome: "欢迎来到 SFV-X Games", 
+                desc: "点击下方进入游戏世界",
+                btn: "进入", 
+                dir: "ltr",
+                metaDesc: "欢迎来到 SFV-X Games - 进入精彩的游戏世界。"
+            }
         };
 
         // الكشف عن لغة متصفح الزائر
@@ -94,6 +156,9 @@
         document.getElementById('descText').innerText = t.desc;
         document.getElementById('btnText').innerText = t.btn;
         document.getElementById('detectedLang').innerText = "Language: " + langCode.toUpperCase();
+
+        // تحديث الوصف التعريفي (Meta Description) ديناميكياً حسب لغة المستخدم لجعل الـ SEO مثالي 100%
+        document.querySelector('meta[name="description"]').setAttribute('content', t.metaDesc);
     </script>
 </body>
 </html>
