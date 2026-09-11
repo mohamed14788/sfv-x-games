@@ -731,14 +731,13 @@ body {
    ========================================================= */
 
 .play-image {
-    background:
-        linear-gradient(
-            180deg,
-            rgba(2, 5, 14, 0.05),
-            rgba(2, 5, 14, 0.20)
-           
-        ) 
-       url("play-card.webp");
+    background: linear-gradient(
+        180deg,
+        rgba(2, 5, 14, 0.05),
+        rgba(2, 5, 14, 0.20)
+    ),
+    url("play-card.webp");
+
 
     background-size: cover;
 
