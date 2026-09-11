@@ -772,7 +772,7 @@ body {
             rgba(5, 2, 14, 0.04),
             rgba(5, 2, 14, 0.20)
         ),
-        url("./images/videos-card.png.png");
+        url("videos-card.webp");
 
     background-size: cover;
 
@@ -794,6 +794,8 @@ body {
             1
         );
 }
+
+
 
 
 /* =========================================================
