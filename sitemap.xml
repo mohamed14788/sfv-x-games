@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <!-- الصفحة الرئيسية -->
+  <url>
+    <loc>https://mohamed14788.github.io/sfv-x-games/</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- صفحة الألعاب -->
+  <url>
+    <loc>https://mohamed14788.github.io/sfv-x-games/games/games.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- صفحة تشغيل اللعبة -->
+  <url>
+    <loc>https://mohamed14788.github.io/sfv-x-games/games/game-player.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+</urlset>
+
