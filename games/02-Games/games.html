@@ -11,8 +11,9 @@
     <!-- Preconnect for faster loading -->
     <link rel="preconnect" href="https://img.gamemonetize.com">
     
-    <!-- Styles -->
-    <link rel="stylesheet" href="games.css">
+    <!-- Styles (Render-blocking fix) -->
+    <link rel="stylesheet" href="games.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="games.css"></noscript>
     
     <!-- SEO Meta -->
     <meta property="og:title" content="SFV-X Games">
@@ -217,31 +218,29 @@
                 <!-- =========================================================
                      HERO SECTION
                      ========================================================= -->
-                <section class="games-hero" id="featuredGame">
-                    <div class="hero-background"></div>
-                    <div class="hero-particles" id="heroParticles"></div>
+                <section class="games-hero" id="featuredGame" style="position: relative; overflow: hidden;">
+                    <img src="hero-bg.webp" alt="SFV-X Hero" fetchpriority="high" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; opacity: 0.35;">
                     
-                    <div class="hero-content">
-                        <span class="hero-label" data-i18n="featuredLabel">✦ FEATURED GAME</span>
+                    <div class="hero-background" style="z-index: 2;"></div>
+                    <div class="hero-particles" id="heroParticles" style="z-index: 2;"></div>
+                    
+                    <div class="hero-content" style="position: relative; z-index: 3;">
+                        <span class="hero-label" data-i18n="featuredLabel">✦ SFV-X PLATFORM</span>
                         <h1>
-                            <span data-i18n="heroTitle">The world of games</span>
+                            <span data-i18n="heroTitle">عالم الألعاب</span>
                             <br>
-                            <strong data-i18n="heroTitleStrong">starts here</strong>
+                            <strong data-i18n="heroTitleStrong">يبدأ من هنا</strong>
                         </h1>
                         <p data-i18n="heroDescription">
-                            Discover a new collection of games and get ready for your next gaming experience.
+                            اكتشف مجموعة جديدة من الألعاب واستعد لتجربة اللعب التالية.
                         </p>
                         <div class="hero-actions">
-                            <button class="primary-button" id="heroPlayButton" type="button">
-                                <span>▶</span>
-                                <span data-i18n="playNow">Play Now</span>
+                            <button class="primary-button" id="heroRandomButton" type="button">
+                                <span>🎲</span>
+                                <span data-i18n="randomGame">عشوائي</span>
                             </button>
                             <button class="secondary-button" id="heroInfoButton" type="button">
-                                <span data-i18n="details">Details</span>
-                            </button>
-                            <button class="secondary-button" id="heroRandomButton" type="button">
-                                <span>🎲</span>
-                                <span data-i18n="randomGame">Random</span>
+                                <span data-i18n="details">تفاصيل</span>
                             </button>
                         </div>
                     </div>
@@ -251,6 +250,13 @@
                         <span class="hero-glow"></span>
                     </div>
                 </section>
+
+                <!-- =========================================================
+                     AD SPACE
+                     ========================================================= -->
+                <div class="ad-banner-space" style="width: 100%; min-height: 90px; background: var(--bg-card); border: 1px dashed var(--border); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; margin-bottom: 32px; color: var(--text-muted); font-size: 10px; font-weight: 700; letter-spacing: 1px;">
+                    <span>AD SPACE (Reserved for Future Ads)</span>
+                </div>
 
                 <!-- =========================================================
                      STATS BAR
@@ -283,9 +289,7 @@
                         </div>
                         <div class="categories-scroll-hint">← Scroll →</div>
                     </div>
-                    <div class="categories-list" id="categoriesList">
-                        <!-- Categories will be dynamically generated -->
-                    </div>
+                    <div class="categories-list" id="categoriesList"></div>
                 </section>
 
                 <!-- =========================================================
@@ -303,7 +307,6 @@
                         </button>
                     </div>
                     <div class="games-grid" id="popularGamesGrid">
-                        <!-- Loading skeleton -->
                         <div class="loading-skeleton" id="popularSkeleton">
                             <div class="skeleton-card"></div>
                             <div class="skeleton-card"></div>
@@ -328,7 +331,6 @@
                         </button>
                     </div>
                     <div class="games-grid" id="newGamesGrid">
-                        <!-- Loading skeleton -->
                         <div class="loading-skeleton" id="newSkeleton">
                             <div class="skeleton-card"></div>
                             <div class="skeleton-card"></div>
@@ -372,7 +374,8 @@
     <!-- =========================================================
          JAVASCRIPT
          ========================================================= -->
-    <script src="games.js"></script>
+    <script src="games.js" defer></script>
 
 </body>
-</html>
+    </html>
+                        
