@@ -1225,34 +1225,19 @@ img {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 16px;
-    color: var(--text-muted);
-    font-size: 8px;
-    font-weight: 800;
-    letter-spacing: 2px;
-}
-
-.footer-brand {
-    color: var(--text-secondary);
-}
-
-.footer-line {
-    width: 24px;
-    height: 1px;
-    background: var(--border);
-}
-
-.footer-tagline {
-    opacity: 0.6;
-}
-
-.footer-year {
-    opacity: 0.4;
-}
-
-/* =========================================================
+ /* =========================================================
    21. RTL Support
    ========================================================= */
+
+[dir="rtl"] {
+    direction: rtl;
+    text-align: right;
+}
+
+[dir="ltr"] {
+    direction: ltr;
+    text-align: left;
+}
 
 [dir="rtl"] .games-sidebar {
     right: auto;
@@ -1303,6 +1288,36 @@ img {
 [dir="rtl"] .stat-divider {
     display: none;
 }
+
+[dir="rtl"] .badge {
+    margin-left: 0;
+    margin-right: auto;
+}
+   gap: 16px;
+    color: var(--text-muted);
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.footer-brand {
+    color: var(--text-secondary);
+}
+
+.footer-line {
+    width: 24px;
+    height: 1px;
+    background: var(--border);
+}
+
+.footer-tagline {
+    opacity: 0.6;
+}
+
+.footer-year {
+    opacity: 0.4;
+}
+
 
 /* =========================================================
    22. Responsive
