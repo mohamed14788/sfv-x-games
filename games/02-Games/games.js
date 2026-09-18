@@ -978,15 +978,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }); 
  
                 return { 
-                    ...game, 
-                    _score: totalScore 
-                }; 
-            }) 
-            .filter(game => game._score > 0.2) 
-            .sort((a, b) => b._score - a._score); 
-    } 
- 
- 
+            
     /* ========================================================= 
        7. DATA LOADING 
        ========================================================= */ 
@@ -1069,6 +1061,16 @@ document.addEventListener("DOMContentLoaded", () => {
         } 
     } 
  
+          ...game, 
+                    _score: totalScore 
+                }; 
+            }) 
+            .filter(game => game._score > 0.2) 
+            .sort((a, b) => b._score - a._score); 
+    } 
+ 
+ 
+
  
     /* ========================================================= 
        8. GAME CARD 
