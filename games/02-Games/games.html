@@ -12,10 +12,10 @@
     <link rel="preconnect" href="https://img.gamemonetize.com" crossorigin>
     <link rel="dns-prefetch" href="https://img.gamemonetize.com">
     
-    <!-- Styles (Render-blocking fix) -->
-    <link rel="stylesheet" href="games.css" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="games.css"></noscript>
-    
+<!-- Render-blocking fix using preload -->
+<link rel="preload" href="games.css" as="style">
+<link rel="stylesheet" href="games.css">
+
     <!-- SEO Meta -->
     <meta property="og:title" content="SFV-X Games">
     <meta property="og:description" content="Play hundreds of free online games">
