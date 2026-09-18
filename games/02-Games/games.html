@@ -8,8 +8,9 @@
     
     <title>SFV-X Games | Ultimate Gaming Platform</title>
     
-    <!-- Preconnect for faster loading -->
-    <link rel="preconnect" href="https://img.gamemonetize.com">
+    <!-- Preconnect & DNS Prefetch for Performance -->
+    <link rel="preconnect" href="https://img.gamemonetize.com" crossorigin>
+    <link rel="dns-prefetch" href="https://img.gamemonetize.com">
     
     <!-- Styles (Render-blocking fix) -->
     <link rel="stylesheet" href="games.css" media="print" onload="this.media='all'">
@@ -216,10 +217,10 @@
             <div class="games-content">
 
                 <!-- =========================================================
-                     HERO SECTION
+                     HERO SECTION (Optimized LCP with original hero-bg.webp)
                      ========================================================= -->
                 <section class="games-hero" id="featuredGame" style="position: relative; overflow: hidden;">
-                    <img src="hero-bg.webp" alt="SFV-X Hero" fetchpriority="high" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; opacity: 0.35;">
+                    <img src="hero-bg.webp" alt="SFV-X Hero" fetchpriority="high" decoding="async" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; opacity: 0.5;">
                     
                     <div class="hero-background" style="z-index: 2;"></div>
                     <div class="hero-particles" id="heroParticles" style="z-index: 2;"></div>
@@ -372,10 +373,10 @@
     </div>
 
     <!-- =========================================================
-         JAVASCRIPT
+         JAVASCRIPT (Deferred to prevent render-blocking)
          ========================================================= -->
     <script src="games.js" defer></script>
 
 </body>
-    </html>
-                        
+</html>
+                            
