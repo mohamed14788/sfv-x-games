@@ -2605,73 +2605,24 @@ document.addEventListener("DOMContentLoaded", () => {
        23. HERO 
        ========================================================= */ 
  
-    function getFeaturedGame() { 
- 
-        if (!state.allGames.length) { 
-            return null; 
-        } 
- 
-        const featured = 
-            state.allGames.find( 
-                game => 
-                    game.featured === true || 
-                    game.featured === "true" 
-            ); 
- 
-        return featured || 
-            state.allGames[0]; 
-    } 
- 
- 
-    function updateHero() { 
- 
-        const game = 
-            getFeaturedGame(); 
- 
-        if (!game || !DOM.featuredGame) { 
-            return; 
-        } 
- 
-        DOM.featuredGame.dataset.gameId = 
-            game.id; 
- 
-        const background = 
-            DOM.featuredGame.querySelector( 
-                ".hero-background" 
-            ); 
- 
-        const image = 
-            game.background || 
-            game.banner || 
-            game.thumb || 
-            game.thumbnail || 
-            game.image; 
- 
-        if ( 
-            background && 
-            image 
-        ) { 
- 
-            background.style.backgroundImage = 
-                ` 
-                    linear-gradient( 
-                        90deg, 
-                        rgba(5,5,7,.98) 0%, 
-                        rgba(5,5,7,.82) 40%, 
-                        rgba(5,5,7,.35) 100% 
-                    ), 
-                    url("${image}") 
-                `; 
- 
-            background.style.backgroundSize = 
-                "cover"; 
- 
-            background.style.backgroundPosition = 
-                "center"; 
-        } 
-    } 
- 
- 
+    function updateHero() {
+
+    const game =
+        getFeaturedGame();
+
+    if (!game || !DOM.featuredGame) {
+        return;
+    }
+
+    /*
+        الـHero أصبح يعتمد على الصورة الموجودة في HTML.
+        لا نستخدم أي صورة من games.json كخلفية للـHero.
+        صور الألعاب داخل البطاقات تظل تعمل بشكل طبيعي.
+    */
+
+    DOM.featuredGame.dataset.gameId =
+        game.id;
+        }
     /* ========================================================= 
        24. EVENT LISTENERS 
        ========================================================= */ 
