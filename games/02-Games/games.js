@@ -978,97 +978,47 @@ document.addEventListener("DOMContentLoaded", () => {
                 }); 
  
                 return { 
-            
     /* ========================================================= 
        7. DATA LOADING 
        ========================================================= */ 
  
     async function loadGames() { 
- 
         try { 
- 
+            // 1. جلب البيانات من ملف الـ JSON بشكل طبيعي ومضمون
             const response = await fetch("games.json", { 
                 cache: "no-cache" 
             }); 
  
             if (!response.ok) { 
-                throw new Error( 
-                    `HTTP ${response.status}` 
-                ); 
+                throw new Error(`HTTP ${response.status}`); 
             } 
  
             const data = await response.json(); 
  
             if (!Array.isArray(data)) { 
-                throw new Error( 
-                    "games.json must contain an array." 
-                ); 
+                throw new Error("games.json must contain an array."); 
             } 
  
             state.allGames = data.filter(Boolean); 
             state.filteredGames = [...state.allGames]; 
  
             updateStats(); 
- 
             renderCategories(); 
             renderPopularGames(); 
             renderNewGames(); 
- 
             updateHero(); 
- 
             renderFavoritesBadge(); 
  
-            console.log( 
-                `SFV-X Games loaded: ${state.allGames.length} games` 
-            ); 
- 
+            console.log(`SFV-X Games loaded successfully: ${state.allGames.length} games`); 
             return state.allGames; 
  
-        } catch (error) { 
- 
-            console.error( 
-                "SFV-X Games loading error:", 
-                error 
-            ); 
- 
-            showError( 
-                translate("loadError") 
-            ); 
- 
+        } `catch` (error) { 
+            console.error("SFV-X Games loading error:", error); 
+            showError(translate("loadError")); 
             return []; 
         } 
-    } 
- 
- 
-    function showError(message) { 
- 
-        const errorHTML = ` 
-            <div class="search-empty" style="grid-column:1/-1;"> 
-                <div class="empty-icon">⚠️</div> 
- 
-                <h2>${escapeHTML(translate("errorTitle"))}</h2> 
- 
-                <p>${escapeHTML(message)}</p> 
-            </div> 
-        `; 
- 
-        if (DOM.popularGrid) { 
-            DOM.popularGrid.innerHTML = errorHTML; 
-        } 
- 
-        if (DOM.newGrid) { 
-            DOM.newGrid.innerHTML = errorHTML; 
-        } 
-    } 
- 
-          ...game, 
-                    _score: totalScore 
-                }; 
-            }) 
-            .filter(game => game._score > 0.2) 
-            .sort((a, b) => b._score - a._score); 
-    } 
- 
+    }
+                 
  
 
  
