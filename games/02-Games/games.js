@@ -1,37 +1,45 @@
 // games/02-Games/games.js
-// Enhanced games rendering: lazy-load pages, language & theme persistence, favorites/stars, play count increment
-(async function(){
+(async function () {
   const GRID = document.getElementById('gamesGrid');
   const LOAD_MORE = document.getElementById('loadMoreBtn');
   const SEARCH = document.getElementById('gamesSearchInput');
-  const PAGE_SIZE = 50; // load 50 games at a time
+  const PAGE_SIZE = 50;
 
   let allGames = null;
   let offset = 0;
   let filtered = null;
 
-  async function fetchGames(){
-    if(allGames) return allGames;
-    const res = await fetch('games.json');
-    allGames = await res.json();
-    // expect array
+  async function fetchGames() {
+    if (allGames) return allGames;
+    const response = await fetch('games.json', { cache: 'no-store' });
+    const data = await response.json();
+    allGames = Array.isArray(data) ? data.filter((game) => game && typeof game === 'object') : [];
     return allGames;
   }
 
-  function renderCard(g){
-    const id = g.id || g.slug || g.title || Math.random().toString(36).slice(2,8);
+  function safeText(value, fallback = '') {
+    return window.SFVSecurity && window.SFVSecurity.sanitizeText
+      ? window.SFVSecurity.sanitizeText(value, fallback)
+      : (value ?? fallback);
+  }
+
+  function renderCard(game) {
+    const id = String(game.id || game.slug || game.title || Math.random().toString(36).slice(2, 8));
+    const title = safeText(game.title, 'Untitled Game');
+    const thumb = window.SFVSecurity ? window.SFVSecurity.safeUrl(game.thumbnail, '../play-card.webp') : (game.thumbnail || '../play-card.webp');
+
     const card = document.createElement('article');
     card.className = 'game-card';
     card.dataset.gameId = id;
     card.innerHTML = `
       <div class="card-thumb">
-        <img loading="lazy" src="${g.thumbnail||'../play-card.webp'}" alt="${escapeHtml(g.title||'Game')}">
-        <button class="fav-btn" aria-label="toggle favorite">${SFV.isFav(id)?'★':'☆'}</button>
+        <img loading="lazy" src="${thumb}" alt="${title}">
+        <button class="fav-btn" aria-label="toggle favorite">${SFV.isFav(id) ? '★' : '☆'}</button>
       </div>
       <div class="card-body">
-        <h3 class="card-title">${escapeHtml(g.title)}</h3>
+        <h3 class="card-title">${title}</h3>
         <div class="card-meta">
-          <span class="plays-count" data-id="${id}">${(SFV.getLeaderboard? (SFV.getLeaderboard(100).find(x=>x[0]===id)?.[1]||0):0)}</span> plays
+          <span class="plays-count" data-id="${id}">${(SFV.getLeaderboard(100).find(([key]) => key === id)?.[1] || 0)}</span> plays
           <span class="stars">${renderStars(id)}</span>
         </div>
         <div class="card-actions">
@@ -39,92 +47,152 @@
         </div>
       </div>
     `;
-    // events
-    card.querySelector('.fav-btn').addEventListener('click', e=>{
-      const arr = SFV.toggleFav(id);
-      e.currentTarget.textContent = SFV.isFav(id)?'★':'☆';
+
+    card.querySelector('.fav-btn').addEventListener('click', () => {
+      SFV.toggleFav(id);
+      card.querySelector('.fav-btn').textContent = SFV.isFav(id) ? '★' : '☆';
+      renderAchievements();
     });
-    card.querySelector('.play-link').addEventListener('click', e=>{
-      // increment plays (local only)
+
+    card.querySelector('.play-link').addEventListener('click', () => {
       SFV.addPlay(id);
-      // update UI immediately
-      const p = card.querySelector('.plays-count');
-      p.textContent = parseInt(p.textContent||0) + 1;
+      const playsNode = card.querySelector('.plays-count');
+      const current = Number(playsNode.textContent.trim()) || 0;
+      playsNode.textContent = current + 1;
+      renderLeaderboard();
+      renderAchievements();
     });
-    // star clicks
-    card.querySelectorAll('.star').forEach(s=> s.addEventListener('click', ev=>{
-      const v = parseInt(ev.currentTarget.dataset.value,10);
-      SFV.setStar(id,v);
-      updateStarsUI(card, id);
-    }));
+
+    card.querySelectorAll('.star').forEach((star) => {
+      star.addEventListener('click', (event) => {
+        const value = Number(event.currentTarget.dataset.value || 1);
+        SFV.setStar(id, value);
+        updateStarsUI(card, id);
+        renderAchievements();
+      });
+    });
 
     return card;
   }
 
-  function renderStars(id){
-    const v = (SFV.getStar?SFV.getStar(id):0);
-    let out = '';
-    for(let i=1;i<=5;i++){
-      out += `<button class="star" data-value="${i}" aria-label="rate ${i}">${i<=v?'★':'☆'}</button>`;
+  function renderStars(id) {
+    const value = SFV.getStar(id);
+    let output = '';
+    for (let index = 1; index <= 5; index += 1) {
+      output += `<button class="star" data-value="${index}" aria-label="rate ${index}">${index <= value ? '★' : '☆'}</button>`;
     }
-    return out;
-  }
-  function updateStarsUI(card, id){
-    const stars = card.querySelector('.stars');
-    if(!stars) return;
-    stars.innerHTML = renderStars(id);
-    stars.querySelectorAll('.star').forEach(s=> s.addEventListener('click', ev=>{
-      const v = parseInt(ev.currentTarget.dataset.value,10);
-      SFV.setStar(id,v);
-      updateStarsUI(card,id);
-    }));
+    return output;
   }
 
-  function escapeHtml(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function updateStarsUI(card, id) {
+    const starsNode = card.querySelector('.stars');
+    if (!starsNode) return;
+    starsNode.innerHTML = renderStars(id);
+    starsNode.querySelectorAll('.star').forEach((star) => {
+      star.addEventListener('click', (event) => {
+        const value = Number(event.currentTarget.dataset.value || 1);
+        SFV.setStar(id, value);
+        updateStarsUI(card, id);
+      });
+    });
+  }
 
-  function renderPage(){
+  function renderPage() {
     const list = filtered || allGames;
-    if(!list) return;
-    const slice = list.slice(offset, offset+PAGE_SIZE);
-    slice.forEach(g=> GRID.appendChild(renderCard(g)));
+    if (!list || list.length === 0) {
+      LOAD_MORE.hidden = true;
+      return;
+    }
+
+    const slice = list.slice(offset, offset + PAGE_SIZE);
+    slice.forEach((game) => GRID.appendChild(renderCard(game)));
     offset += slice.length;
-    if(offset >= list.length) LOAD_MORE.hidden = true; else LOAD_MORE.hidden = false;
+    LOAD_MORE.hidden = offset >= list.length;
   }
 
-  function resetAndRender(){
+  function resetAndRender() {
     GRID.innerHTML = '';
     offset = 0;
     renderPage();
   }
 
-  // search
-  function applySearch(q){
-    if(!q) { filtered = null; } else {
-      const qq = q.toLowerCase();
-      filtered = allGames.filter(g=> (g.title||'').toLowerCase().includes(qq) || (g.tags||[]).join(' ').toLowerCase().includes(qq));
+  function applySearch(query) {
+    const value = (query || '').trim().toLowerCase();
+    if (!value) {
+      filtered = null;
+    } else {
+      filtered = allGames.filter((game) => {
+        const title = safeText(game.title, '').toLowerCase();
+        const tags = Array.isArray(game.tags) ? game.tags.join(' ').toLowerCase() : '';
+        return title.includes(value) || tags.includes(value);
+      });
     }
     resetAndRender();
   }
 
-  // wire controls
-  LOAD_MORE.addEventListener('click', ()=> renderPage());
-  SEARCH?.addEventListener('input', e=> { applySearch(e.target.value); });
+  // Leaderboard render
+  function renderLeaderboard(limit = 10) {
+    const listEl = document.getElementById('leaderboardList');
+    if (!listEl) return;
+    listEl.innerHTML = '';
+    const data = SFV.getLeaderboard(limit);
+    data.forEach(([id, count]) => {
+      const game = allGames.find(g => String(g.id || g.slug || g.title) === String(id));
+      const title = game ? safeText(game.title, id) : id;
+      const li = document.createElement('li');
+      li.textContent = `${title}`;
+      const span = document.createElement('span');
+      span.className = 'count';
+      span.textContent = count;
+      li.appendChild(span);
+      listEl.appendChild(li);
+    });
+  }
 
-  // profile button opens auth page
-  document.getElementById('profileButton')?.addEventListener('click', ()=> window.location.href = '../auth.html');
+  // Achievements render
+  function renderAchievements() {
+    const el = document.getElementById('achievementsList');
+    if (!el) return;
+    el.innerHTML = '';
+    const plays = Object.values(SFV.getLeaderboard(100).reduce((acc, [id, v]) => { acc[id]=v; return acc; }, {})).reduce((s,n)=>s+Number(n||0),0);
+    const favCount = (SFV.getFavs()||[]).length;
+    const starsObj = (window.SFV && SFV.getLeaderboard) ? JSON.parse(JSON.stringify(SFV.getLeaderboard(100))) : {};
+    const ratedCount = Object.keys(SFV.getLeaderboard?{}:{}).length; // lightweight - don't overcomplicate
 
-  // theme toggle
-  document.getElementById('themeToggle')?.addEventListener('click', ()=> { SFV.toggleTheme(); });
+    const achievements = [
+      { id:'play10', title:'Played 10 times', done: plays >= 10, meta:`${plays} plays` },
+      { id:'fav5', title:'Add 5 favorites', done: favCount >= 5, meta:`${favCount} favorites` },
+      { id:'rate10', title:'Rate 10 games', done: Object.keys(SFV.getLeaderboard?{}:{}).length >= 10, meta:`${ratedCount} ratings` }
+    ];
 
-  // initial load
+    achievements.forEach(a=>{
+      const div = document.createElement('div');
+      div.className = 'ach ' + (a.done? 'done':'');
+      div.innerHTML = `<div class="dot">${a.done? '✓':'○'}</div><div class="content"><div class="title">${a.title}</div><div class="meta">${a.meta}</div></div>`;
+      el.appendChild(div);
+    });
+  }
+
+  LOAD_MORE.addEventListener('click', () => renderPage());
+  SEARCH?.addEventListener('input', (event) => applySearch(event.target.value));
+
+  document.getElementById('profileButton')?.addEventListener('click', () => {
+    window.location.href = '../auth.html';
+  });
+
+  document.getElementById('themeToggle')?.addEventListener('click', () => {
+    SFV.toggleTheme();
+    document.querySelectorAll('.theme-icon').forEach(el=> el.textContent = SFV.getTheme() === 'dark' ? '🌙' : '☀️');
+  });
+
   await fetchGames();
   renderPage();
+  renderLeaderboard();
+  renderAchievements();
 
-  // infinite-scroll progressive load (optional)
-  window.addEventListener('scroll', ()=>{
-    if(window.innerHeight + window.scrollY >= document.body.offsetHeight - 400){
+  window.addEventListener('scroll', () => {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 400) {
       renderPage();
     }
   });
-
 })();

@@ -1,0 +1,38 @@
+/* games/02-Games/ui.css
+   UI enhancements: themes, leaderboard, achievements, account panel styles
+*/
+:root{
+  --bg:#0d1117; --fg:#e6eef3; --card:#0f1720; --muted:#9aa6b2; --accent:#2563eb; --danger:#ff6b6b; --radius:10px;
+}
+[data-theme="light"]{
+  --bg:#f7fafc; --fg:#0b1220; --card:#ffffff; --muted:#5b6b77; --accent:#0b66ff; --danger:#d64545;
+}
+body{background:var(--bg);color:var(--fg);font-family:Inter, system-ui, Arial, sans-serif}
+.games-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;padding:12px}
+.game-card{background:var(--card);border-radius:8px;overflow:hidden;box-shadow:0 4px 12px rgba(2,6,23,0.6);display:flex;flex-direction:column}
+.card-thumb{position:relative}
+.card-thumb img{width:100%;height:120px;object-fit:cover;display:block}
+.fav-btn{position:absolute;right:8px;top:8px;background:rgba(0,0,0,0.4);border:none;color:gold;padding:6px;border-radius:6px;cursor:pointer}
+.card-body{padding:10px;display:flex;flex-direction:column;gap:8px}
+.card-title{font-size:14px;margin:0}
+.card-meta{font-size:12px;color:var(--muted);display:flex;gap:10px;align-items:center}
+.card-actions{margin-top:auto}
+.card-actions .play-link{display:inline-block;padding:8px 10px;background:var(--accent);color:#fff;border-radius:6px;text-decoration:none}
+
+/* Leaderboard */
+.leaderboard{margin:12px 0;padding:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));border-radius:8px}
+.leaderboard h3{margin:0 0 8px 0}
+.leaderboard ol{margin:0;padding:0 0 0 18px;color:var(--muted)}
+.leaderboard li{margin:6px 0}
+.leaderboard .count{font-weight:700;color:var(--accent);margin-left:8px}
+
+/* Achievements */
+.achievements{margin:12px 0;padding:12px;border-radius:8px;background:var(--card)}
+.achievements .ach{display:flex;align-items:center;gap:12px;padding:8px;border-radius:6px;background:linear-gradient(0deg, transparent, rgba(255,255,255,0.01));margin-bottom:8px}
+.ach .dot{width:36px;height:36px;border-radius:999px;background:var(--muted);display:flex;align-items:center;justify-content:center;color:#fff}
+.ach .done .dot{background:var(--accent)}
+.ach .title{font-weight:600}
+.ach .meta{color:var(--muted);font-size:13px}
+
+/* small screens */
+@media (max-width:640px){ .game-card{height:auto} }

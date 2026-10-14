@@ -1,5 +1,5 @@
-// games/auth.js - simple local account handling
-document.addEventListener('DOMContentLoaded', ()=>{
+// games/auth.js
+document.addEventListener('DOMContentLoaded', () => {
   const nameInput = document.getElementById('nameInput');
   const avatarInput = document.getElementById('avatarInput');
   const createBtn = document.getElementById('createBtn');
@@ -11,35 +11,49 @@ document.addEventListener('DOMContentLoaded', ()=>{
   const avatarPreview = document.getElementById('avatarPreview');
   const backBtn = document.getElementById('backBtn');
 
-  function refresh(){
-    const u = SFV.getUser();
-    if(u.loggedIn){
-      loggedInView.hidden = false; loggedOutView.hidden = true;
-      displayName.textContent = u.name || 'User';
-      avatarPreview.textContent = u.avatar || '👤';
+  function refresh() {
+    const user = SFV.getUser();
+    if (user.loggedIn) {
+      loggedInView.hidden = false;
+      loggedOutView.hidden = true;
+      displayName.textContent = user.name || 'User';
+      avatarPreview.textContent = user.avatar || '👤';
       document.getElementById('accountTitle').textContent = 'Account Details';
     } else {
-      loggedInView.hidden = true; loggedOutView.hidden = false;
+      loggedInView.hidden = true;
+      loggedOutView.hidden = false;
       document.getElementById('accountTitle').textContent = 'Sign in / Create';
+    }
+    // show quick stats
+    const stats = document.getElementById('accountStats');
+    if (stats) {
+      const plays = Object.values(SFV.getLeaderboard(100).reduce((acc, [id, v]) => { acc[id]=v; return acc; }, {})).reduce((s,n)=>s+Number(n||0),0);
+      const favs = (SFV.getFavs()||[]).length;
+      stats.textContent = `Plays: ${plays} · Favorites: ${favs}`;
     }
   }
 
-  createBtn.addEventListener('click', ()=>{
-    const name = nameInput.value.trim() || 'Player';
-    const avatar = avatarInput.value.trim() || '👤';
-    SFV.setUser({name, avatar, loggedIn:true});
+  function saveUser() {
+    const safeName = (window.SFVSecurity && window.SFVSecurity.sanitizeText)
+      ? window.SFVSecurity.sanitizeText(nameInput.value, 'Player')
+      : (nameInput.value || 'Player');
+    const safeAvatar = (window.SFVSecurity && window.SFVSecurity.sanitizeText)
+      ? window.SFVSecurity.sanitizeText(avatarInput.value, '👤')
+      : (avatarInput.value || '👤');
+
+    SFV.setUser({ name: safeName, avatar: safeAvatar, loggedIn: true });
+    refresh();
+  }
+
+  createBtn?.addEventListener('click', saveUser);
+  loginBtn?.addEventListener('click', saveUser);
+  logoutBtn?.addEventListener('click', () => {
+    SFV.logout();
     refresh();
   });
-  loginBtn.addEventListener('click', ()=>{
-    const name = nameInput.value.trim() || 'Player';
-    const avatar = avatarInput.value.trim() || '👤';
-    SFV.setUser({name, avatar, loggedIn:true});
-    refresh();
+  backBtn?.addEventListener('click', () => {
+    window.location.href = '../02-Games/games.html';
   });
-  logoutBtn?.addEventListener('click', ()=>{
-    SFV.logout(); refresh();
-  });
-  backBtn.addEventListener('click', ()=> window.location.href = '../02-Games/games.html');
 
   refresh();
 });
