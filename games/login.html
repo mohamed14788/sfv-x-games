@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login / Signup</title>
+  <style>
+    body {
+      margin: 0; display: grid; place-items: center; min-height: 100vh;
+      font-family: Arial, sans-serif; background: linear-gradient(135deg, #0d1117, #111827);
+      color: #f3f4f6;
+    }
+    .auth-shell {
+      width: min(470px, calc(100% - 24px));
+      background: rgba(17, 24, 39, 0.9); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px;
+      padding: 24px; box-shadow: 0 16px 48px rgba(0,0,0,0.25);
+    }
+    .auth-shell h2 { margin-top: 0; }
+    .field { display: block; margin-bottom: 14px; }
+    label { display: block; font-size: 14px; margin-bottom: 6px; }
+    input {
+      width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid #334155;
+      background: rgba(15, 23, 42, 0.85); color: white; box-sizing: border-box;
+    }
+    button {
+      width: 100%; padding: 12px; border: 0; border-radius: 10px; background: #2563eb; color: white;
+      cursor: pointer; font-weight: 700; margin-top: 8px;
+    }
+    .oauth-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+    .oauth-btn { background: #111827; border: 1px solid #334155; }
+    .toggle { color: #93c5fd; cursor: pointer; display: inline-block; margin-top: 12px; }
+    #authStatus { min-height: 22px; margin-top: 10px; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <div class="auth-shell">
+    <h2 id="modeLabel">Sign in</h2>
+    <form id="authForm">
+      <div class="field" id="nameWrap">
+        <label for="displayName">Display name</label>
+        <input id="displayName" type="text" placeholder="Player">
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" type="email" placeholder="your@email.com" required>
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" type="password" placeholder="Password" required>
+      </div>
+      <button type="submit">Sign in</button>
+    </form>
+
+    <div class="oauth-row">
+      <button id="googleLogin" class="oauth-btn" type="button">Google</button>
+      <button id="facebookLogin" class="oauth-btn" type="button">Facebook</button>
+    </div>
+
+    <div id="authStatus" aria-live="polite"></div>
+    <span id="toggleMode" class="toggle">Create account</span>
+  </div>
+
+  <script src="supabase-client.js"></script>
+  <script src="auth-supabase.js"></script>
+</body>
+</html>
