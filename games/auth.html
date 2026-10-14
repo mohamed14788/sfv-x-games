@@ -1,0 +1,45 @@
+<!-- games/auth.html - simple local-only auth / profile page -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Account - SFV-X</title>
+  <style>
+    body{font-family:Arial,Helvetica,sans-serif;padding:20px;background:var(--bg, #0d1117);color:var(--fg,#fff)}
+    .card{max-width:420px;margin:24px auto;padding:18px;border-radius:8px;background:var(--card,#111)}
+    .field{margin-bottom:12px}
+    input{width:100%;Padding:8px;border-radius:4px;border:1px solid #333;background:#0b0b0b;color:#fff}
+    button{padding:10px 12px;border-radius:6px;background:#2563eb;color:#fff;border:none}
+    .avatar-preview{font-size:40px}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2 id="accountTitle">Account</h2>
+    <div id="loggedOutView">
+      <div class="field"><label>Name</label><input id="nameInput" placeholder="Display name"></div>
+      <div class="field"><label>Avatar (emoji or single char)</label><input id="avatarInput" placeholder="🙂 or A"></div>
+      <div style="display:flex;gap:8px;">
+        <button id="createBtn">Create account</button>
+        <button id="loginBtn">Login as</button>
+      </div>
+    </div>
+
+    <div id="loggedInView" hidden>
+      <div class="field avatar-preview" id="avatarPreview">👤</div>
+      <div class="field"><strong id="displayName">Guest</strong></div>
+      <div class="field"><button id="logoutBtn">Logout</button></div>
+    </div>
+
+    <hr>
+    <div>
+      <h3>Settings</h3>
+      <div class="field"><button id="backBtn">Back to games</button></div>
+    </div>
+  </div>
+
+<script src="../games/common.js"></script>
+<script src="auth.js"></script>
+</body>
+</html>
